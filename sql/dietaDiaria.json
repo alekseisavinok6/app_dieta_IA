@@ -1,0 +1,204 @@
+{
+  "descripcion": "Dieta hipercalórica distribuida en 5 comidas para favorecer el aumento de peso de forma saludable. Se enfoca en proteínas de alta calidad, carbohidratos complejos y grasas saludables, evitando la mayonesa como se indicó.",
+  "comidas": [
+    {
+      "nombre": "Desayuno",
+      "platos": [
+        {
+          "nombre": "Tostadas integrales con aguacate y huevo",
+          "ingredientes": [
+            {
+              "nombre": "Pan integral",
+              "nutriente": "Carbohidratos complejos",
+              "valorCalorico": 140,
+              "alergenos": ["gluten"],
+              "peso": 60,
+              "medida": "2 rebanadas"
+            },
+            {
+              "nombre": "Aguacate",
+              "nutriente": "Grasas saludables",
+              "valorCalorico": 160,
+              "alergenos": [],
+              "peso": 50,
+              "medida": "1/2 unidad"
+            },
+            {
+              "nombre": "Huevo",
+              "nutriente": "Proteína animal",
+              "valorCalorico": 70,
+              "alergenos": ["huevo"],
+              "peso": 60,
+              "medida": "1 unidad"
+            }
+          ]
+        },
+        {
+          "nombre": "Batido de plátano con avena y leche",
+          "ingredientes": [
+            {
+              "nombre": "Plátano",
+              "nutriente": "Carbohidratos",
+              "valorCalorico": 90,
+              "alergenos": [],
+              "peso": 120,
+              "medida": "1 unidad"
+            },
+            {
+              "nombre": "Avena",
+              "nutriente": "Fibra y carbohidratos",
+              "valorCalorico": 150,
+              "alergenos": ["gluten (puede contener)"],
+              "peso": 40,
+              "medida": "4 cucharadas"
+            },
+            {
+              "nombre": "Leche entera",
+              "nutriente": "Proteína y grasa",
+              "valorCalorico": 120,
+              "alergenos": ["lácteos"],
+              "peso": 250,
+              "medida": "1 vaso"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Media mañana",
+      "platos": [
+        {
+          "nombre": "Yogur griego con nueces y miel",
+          "ingredientes": [
+            {
+              "nombre": "Yogur griego natural",
+              "nutriente": "Proteína y grasa",
+              "valorCalorico": 130,
+              "alergenos": ["lácteos"],
+              "peso": 125,
+              "medida": "1 unidad"
+            },
+            {
+              "nombre": "Nueces",
+              "nutriente": "Grasas saludables",
+              "valorCalorico": 180,
+              "alergenos": ["frutos secos"],
+              "peso": 30,
+              "medida": "1 puñado"
+            },
+            {
+              "nombre": "Miel",
+              "nutriente": "Azúcar natural",
+              "valorCalorico": 60,
+              "alergenos": [],
+              "peso": 15,
+              "medida": "1 cucharada"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Comida",
+      "platos": [
+        {
+          "nombre": "Pechuga de pollo con arroz integral y verduras al vapor",
+          "ingredientes": [
+            {
+              "nombre": "Pechuga de pollo",
+              "nutriente": "Proteína magra",
+              "valorCalorico": 165,
+              "alergenos": [],
+              "peso": 150,
+              "medida": "1 filete mediano"
+            },
+            {
+              "nombre": "Arroz integral",
+              "nutriente": "Carbohidratos complejos",
+              "valorCalorico": 210,
+              "alergenos": [],
+              "peso": 100,
+              "medida": "1 taza cocida"
+            },
+            {
+              "nombre": "Zanahoria y brócoli",
+              "nutriente": "Fibra, vitaminas",
+              "valorCalorico": 80,
+              "alergenos": [],
+              "peso": 120,
+              "medida": "1 taza"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Merienda",
+      "platos": [
+        {
+          "nombre": "Tortilla francesa con pan y tomate",
+          "ingredientes": [
+            {
+              "nombre": "Huevos",
+              "nutriente": "Proteína animal",
+              "valorCalorico": 140,
+              "alergenos": ["huevo"],
+              "peso": 120,
+              "medida": "2 unidades"
+            },
+            {
+              "nombre": "Pan integral",
+              "nutriente": "Carbohidratos",
+              "valorCalorico": 140,
+              "alergenos": ["gluten"],
+              "peso": 60,
+              "medida": "2 rebanadas"
+            },
+            {
+              "nombre": "Tomate triturado",
+              "nutriente": "Fibra y antioxidantes",
+              "valorCalorico": 20,
+              "alergenos": [],
+              "peso": 50,
+              "medida": "2 cucharadas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Cena",
+      "platos": [
+        {
+          "nombre": "Salmón al horno con patata cocida y ensalada verde",
+          "ingredientes": [
+            {
+              "nombre": "Salmón",
+              "nutriente": "Proteína y omega-3",
+              "valorCalorico": 200,
+              "alergenos": ["pescado"],
+              "peso": 120,
+              "medida": "1 filete"
+            },
+            {
+              "nombre": "Patata cocida",
+              "nutriente": "Carbohidratos",
+              "valorCalorico": 150,
+              "alergenos": [],
+              "peso": 150,
+              "medida": "1 unidad mediana"
+            },
+            {
+              "nombre": "Lechuga, espinaca, tomate",
+              "nutriente": "Fibra, vitaminas",
+              "valorCalorico": 40,
+              "alergenos": [],
+              "peso": 100,
+              "medida": "1 bol"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

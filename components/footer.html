@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iconos Sociales</title>
+  <style>
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .social-icons a {
+      font-size: 32px;
+      color: #333;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.3) rotate(8deg);
+    }
+
+    .social-icons a:nth-child(1):hover i { color: #5f82ce; } /* Facebook */
+    .social-icons a:nth-child(2):hover i { color: #57b5efcb; } /* X / Twitter */
+    .social-icons a:nth-child(3):hover i { color: #f1588b; } /* Instagram */
+    .social-icons a:nth-child(4):hover i { color: #f39c12; } /* Mail */
+  </style>
+</head>
+<body>
+<footer>
+  <div class="footer-content flex-c">
+    <div class="footer-section flex-c">
+      <h3>DietaApp</h3>
+      <p>
+        DietaApp te ayuda a alcanzar tus objetivos de salud con planes
+        personalizados, sin complicaciones. Nuestra IA crea dietas adaptadas a
+        ti, sin ingredientes que no quieres ni necesitas. ¡Come mejor, vive
+        mejor!
+      </p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://x.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.mail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-section footer-contact flex-c">
+      <h3>Contacta con nosotros</h3>
+      <div><i class="fas fa-phone"></i> +34 123 456 789</div>
+      <div><i class="fas fa-envelope"></i> info@dietaapp.com</div>
+      <div>
+        <i class="fas fa-map-marker-alt"></i> Calle Ficticia 123, 28013 Madrid,
+        España
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 DietaApp. Reservados todos los derechos.</p>
+  </div>
+</footer>
+</body>
+</html>
