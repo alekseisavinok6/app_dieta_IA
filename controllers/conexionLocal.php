@@ -1,5 +1,5 @@
 <?php 
-define("BASE_URL", "http://localhost/dietaApp/");
+define("BASE_URL", "http://localhost/app_dieta_IA/");
 $host = "localhost";
 $usuario = "root";
 $password = "";
