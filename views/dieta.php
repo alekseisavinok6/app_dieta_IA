@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Tu Dieta Generada</title>
-    <!-- <link rel="stylesheet" href="../css/styles.css">  -->
+    <link rel="stylesheet" href="../css/styles.css"> 
     <style>
         body {
             font-family: Arial, sans-serif;
