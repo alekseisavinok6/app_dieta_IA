@@ -12,17 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Clasificación según OMS
         if ($imc < 18.5) {
-            $clasificacion = "Bajo peso";
+            $clasificacion = "bajo peso";
         } elseif ($imc < 25) {
-            $clasificacion = "Peso normal";
+            $clasificacion = "peso normal";
         } elseif ($imc < 30) {
-            $clasificacion = "Sobrepeso";
+            $clasificacion = "sobrepeso";
         } elseif ($imc < 35) {
-            $clasificacion = "Obesidad grado I";
+            $clasificacion = "obesidad grado I";
         } elseif ($imc < 40) {
-            $clasificacion = "Obesidad grado II";
+            $clasificacion = "obesidad grado II";
         } else {
-            $clasificacion = "Obesidad grado III";
+            $clasificacion = "obesidad grado III";
         }
 
         // Guardar en sesión
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="generarDieta-container flex-c box-s">
             <div class="generar-left">
-                <img src="../imgs/img2.jpg" alt="Imagen de fondo" />
+                <img src="../imgs/antropometria.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
                 <a href="<?= BASE_URL ?>index.php" class="logo">
@@ -88,10 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <form action="estudioAntropometrico.php" method="post">
                     <label for="peso">Peso (kg):</label>
                     <input type="number" step="0.01" name="peso" id="peso" required value="<?= $_SESSION['peso'] ?? '' ?>">
-                    <br>
+                    <br><br>
                     <label for="talla">Talla (m):</label>
                     <input type="number" step="0.01" name="talla" id="talla" required value="<?= $_SESSION['talla'] ?? '' ?>">
-                    <br>
+                    <br><br>
                     <button type="submit" class="btn">Calcular</button>
                 </form>
 
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="resultados">
                         <p><strong>IMC:</strong> <?= $_SESSION['imc'] ?></p>
                         <p><strong>Peso Ideal:</strong> <?= $_SESSION['peso_ideal'] ?> kg</p>
-                        <p><strong>Clasificación:</strong> <?= $_SESSION['clasificacion'] ?></p>
+                        <p><strong>Clasificación:</strong> <?= ucfirst($_SESSION['clasificacion']) ?></p>
                     </div>
                 <?php endif; ?>
             </div>

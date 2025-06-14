@@ -22,13 +22,13 @@
   ?>
     <div class="login-container flex-c box-s">
         <div class="login-left">
-            <img src="../imgs/imagenLogin.jpg" alt="Imagen de fondo" />
+            <img src="../imgs/dieta-app.png" alt="Imagen de fondo" />
         </div>
         <div class="login-right">
             <a class="login-top" href="../index.php">
             <img src="../imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;"></a>
             <h3>Bienvenido!</h3>
-            <p class="text-lg">Inicia sesión para acceder a tus dietas <br> personalizadas</p>
+            <p class="text-lg">Inicia sesión para acceder a tus dietas personalizadas</p>
             <form id="login-form" class="login-form flex-c" action="../controllers/loginController.php" method="POST"> <!-- Cambia la acción al controlador correspondiente -->
                 <div>
                     <input type="email" name="correo" placeholder="Correo"  />

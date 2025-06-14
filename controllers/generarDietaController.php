@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $sexo = $_SESSION['sexo'] ?? null;
     $nivel_actividad_original = $_SESSION['actividad'] ?? null; // por ejemplo, 'sedentario'
     $nivel_actividad_descriptivo = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null; // por ejemplo, 'Actividad sedentaria'
-    $geb = $_SESSION['calculo_energetico']['geb'] ?? null;
-    $get = $_SESSION['calculo_energetico']['get'] ?? null;
+    $geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'] ?? null;
+    $get = $_SESSION['calculo_energetico']['gasto_energetico_total'] ?? null;
     $vct_calculado_inicial = $_SESSION['calculo_energetico']['vct'] ?? null;
 
     // Comprobar si hay datos importantes disponibles
@@ -33,6 +33,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $nivel_actividad_form_factor = floatval($_POST['nivelActividad'] ?? 1.55); // Factor moderado por defecto
     $objetivo_usuario_form = $_POST['objetivo'] ?? 'mantenerPeso';
     $comidas_dia_form = intval($_POST['comidasDias'] ?? 3);
+    // Definir la distribución de calorías según el número de comidas
+    $distribucion_comidas = [];
+
+    switch ($comidas_dia_form) {
+        case 3:
+            $distribucion_comidas = [
+                'Desayuno' => 0.35,
+                'Comida'   => 0.40,
+                'Cena'     => 0.25
+            ];
+            break;
+        case 4:
+            $distribucion_comidas = [
+                'Desayuno' => 0.25,
+                'Snack'    => 0.35,
+                'Comida'   => 0.30,
+                'Cena'     => 0.10
+            ];
+            break;
+        case 5:
+            $distribucion_comidas = [
+                'Desayuno' => 0.25,
+                'Snack'    => 0.10,
+                'Comida'   => 0.35,
+                'Merienda' => 0.10,
+                'Cena'     => 0.20
+            ];
+            break;
+    }
+
     $preferencias_dieta_form = $_POST['preferencias'] ?? '';
     $comentario_adicional_form = trim($_POST['comentario'] ?? '');
 
@@ -52,22 +82,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     switch ($objetivo_usuario_form) {
         case 'bajarPeso':
             // Reducir calorías para perder peso (por ejemplo, déficit de 300-500 kcal)
+            // Resta 400 kcal al VCT inicial → genera un déficit calórico moderado para perder peso de forma saludable (aprox. 0.5 kg/semana).
             $vct_final_objetivo -= 400; // Ajustar según sea necesario
             // Proporcionamos calorías mínimas para mayor seguridad.
+            // Así se evita generar dietas con un aporte calórico peligrosamente bajo.
             if ($sexo === 'mujer' && $vct_final_objetivo < 1200) $vct_final_objetivo = 1200;
             if ($sexo === 'hombre' && $vct_final_objetivo < 1500) $vct_final_objetivo = 1500;
             break;
         case 'subirPeso':
             // Aumentar las calorías para ganar peso (por ejemplo, un superávit de 300-500 kcal)
+            // Suma 400 kcal al VCT → crea un superávit calórico para promover el aumento de masa muscular o peso corporal.
             $vct_final_objetivo += 400; // Ajustar según sea necesario
             break;
         case 'mantenerPeso':
         default:
-            // VCT_calculado_inicial ya es para mantenimiento si el factor de actividad es correcto.
-            // Si desea usar el factor de actividad de formulario para VCT, puede recalcular el GET/VCT aquí.
-            // usando $nivel_actividad_form_factor si implica un GET diferente al guardado.
-            // Para simplificar, asumiremos que el cálculo inicial de VCT (basado en GET) es suficiente.
-            // para mantenimiento si no se establece un objetivo explícito.
+            // No se hace ningún cambio
+            // Se deja el VCT tal cual está, porque ya fue calculado con el objetivo de mantenimiento
             break;
     }
 
@@ -82,9 +112,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $prompt_para_gemini .= "- **Gasto energético total estimado (GET):** " . number_format($get, 2) . " kcal/día\n";
     $prompt_para_gemini .= "- **Objetivo dietético seleccionado por el usuario:** " . $objetivo_usuario_form . "\n";
     $prompt_para_gemini .= "- **Objetivo calórico total de la dieta (VCT):** " . number_format($vct_final_objetivo, 2) . " kcal/día\n\n";
+        // Distribución de calorías al prompt
+    $prompt_para_gemini .= "Distribuye las calorías diarias según esta proporción entre las comidas:\n";
+    foreach ($distribucion_comidas as $nombre_comida => $proporcion) {
+        $kcal = round($vct_final_objetivo * $proporcion);
+        $prompt_para_gemini .= "- $nombre_comida: $kcal kcal (" . ($proporcion * 100) . "%)\n";
+    }
+    $prompt_para_gemini .= "\nImportante: El desayuno debe contener la mayor parte de la energía del día, y la cena debe ser la comida más ligera. No inviertas este orden.\n\n";
     $prompt_para_gemini .= "- **Creame la dieta a partir del valor VCT:" . $vct_final_objetivo . "\n";
-
-    $prompt_para_gemini .= "Por favor, crea un plan de comidas de 7 días (una semana) que incluya " . $comidas_dia_form . "comidas al día.
+    $prompt_para_gemini .= "Por favor, crea un plan de comidas de 7 días (una semana) que incluya " . $comidas_dia_form . " comidas al día.
     Calcúlame el menú en base a " . $vct_final_objetivo . " la dieta a partir del valor VCT.
     La dieta debe estar orientada a la gastronomía y productos típicos de España, siguiendo un patrón de dieta mediterránea. 
     Incluye comidas que un español suele comer en su día a día. Sé detallado y fácil de seguir. 

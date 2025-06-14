@@ -51,7 +51,7 @@
             $_SESSION['alergias'] = $alergias;
             $_SESSION['intolerancias'] = $intolerancias;
             $stmt->close();
-            header("Location: ../views/perfil.php");
+            header("Location: ../index.php");
             exit();
         } else {
             header("Location: ../views/login.php?error=credenciales");

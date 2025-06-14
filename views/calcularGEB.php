@@ -13,6 +13,7 @@ $talla = $_SESSION['talla'] ?? '';
 $edad = $_SESSION['edad'] ?? '';
 $sexo = $_SESSION['sexo'] ?? '';
 $actividad = $_SESSION['actividad'] ?? '';
+$peso_ideal = $_SESSION['peso_ideal'] ?? null;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $peso = floatval($_POST['peso'] ?? 0);
@@ -33,16 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Factores de actividad
         $niveles = [
             'sedentario' => ['factor' => 1.2, 'desc' => 'Sedentario'],
-            'ligero' => ['factor' => 1.375, 'desc' => 'Actividad ligera'],
-            'moderado' => ['factor' => 1.55, 'desc' => 'Actividad moderada'],
-            'intenso' => ['factor' => 1.725, 'desc' => 'Actividad intensa'],
-            'muy_intenso' => ['factor' => 1.9, 'desc' => 'Actividad muy intensa'],
+            'ligera' => ['factor' => 1.375, 'desc' => 'Actividad ligera'],
+            'moderada' => ['factor' => 1.55, 'desc' => 'Actividad moderada'],
+            'intensa' => ['factor' => 1.725, 'desc' => 'Actividad intensa'],
+            'muy_intensa' => ['factor' => 1.9, 'desc' => 'Actividad muy intensa'],
         ];
 
         $factor = $niveles[$actividad]['factor'] ?? 1;
         $nivel_actividad = $niveles[$actividad]['desc'] ?? 'Desconocido';
 
-        $peso_ideal = pow($talla, 2) * 22; // ¿Esta líne es necesaria? Peso idel lo hemos calculado en estudioAntropometrico.php
         // Calcular Gasto Energético Total (GET)
         $get = $geb * $factor;
         
@@ -61,9 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['edad'] = $edad;
         $_SESSION['sexo'] = $sexo;
         $_SESSION['actividad'] = $actividad;
+        $_SESSION['peso_ideal'] = $peso_ideal;
         $_SESSION['calculo_energetico'] = [
-            'geb' => round($geb, 2),
-            'get' => round($get, 2),
+            'gasto_energetico_basal' => round($geb, 2),
+            'gasto_energetico_total' => round($get, 2),
             'vct' => round($vct, 2),
             'nivel_actividad' => $nivel_actividad
         ];
@@ -80,7 +81,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $error = "Error de conexión con la base de datos: " . $conn->connect_error;
         } else {
             $id_cliente = $_SESSION['id_cliente'];
-            $stmt = $conn->prepare("UPDATE datos_cliente SET peso = ?, talla = ?, edad = ?, sexo = ?, actividad = ?, geb = ?, get = ?, vct = ?, peso_ideal = ? WHERE id_cliente = ?");
+            $stmt = $conn->prepare("UPDATE datos_cliente SET 
+            peso = ?, 
+            talla = ?, 
+            edad = ?, 
+            sexo = ?, 
+            actividad = ?, 
+            gasto_energetico_basal = ?, 
+            gasto_energetico_total = ?,
+            vct = ?, 
+            peso_ideal = ? 
+            WHERE id_cliente = ?"
+            );
             $stmt->bind_param("ddissddddi", $peso, $talla, $edad, $sexo, $actividad, $geb, $get, $vct, $peso_ideal, $id_cliente);
 
             if ($stmt->execute()) {
@@ -99,8 +111,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-$geb = $_SESSION['calculo_energetico']['geb'] ?? null;
-$get = $_SESSION['calculo_energetico']['get'] ?? null;
+$geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'] ?? null;
+$get = $_SESSION['calculo_energetico']['gasto_energetico_total'] ?? null;
 $vct = $_SESSION['calculo_energetico']['vct'] ?? null;
 $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
 ?>
@@ -117,14 +129,14 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
         <?php include "../components/navbar.php"; ?>
         <div class="generarDieta-container flex-c box-s">
             <div class="generar-left">
-                <img src="../imgs/img1.jpg" alt="Imagen de fondo" />
+                <img src="../imgs/calculo_gasto_energetico.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
                 <a href="<?= BASE_URL ?>index.php" class="logo">
                     <img src="<?= BASE_URL ?>imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;">
                 </a>
 
-                <h2>Cálculo del Gasto Energético ⚡</h2>
+                <h2>Cálculo del Gasto Energético 🔥</h2>
 
                 <?php if (!empty($mensaje)): ?>
                     <p style="color:green;"><?= $mensaje ?></p>
@@ -132,33 +144,32 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                     <p style="color:red;"><?= $error ?></p>
                 <?php endif; ?>
 
-                <form method="POST" class="form">
+                <form action="calcularGEB.php" method="POST">
                     <label for="peso">Peso (kg):</label>
-                    <input type="number" step="0.1" name="peso" required value="<?= htmlspecialchars($peso) ?>">
-
+                    <input type="number" step="0.01" name="peso" required value="<?= htmlspecialchars($peso) ?>">
+                    <br><br>
                     <label for="talla">Talla (m):</label>
                     <input type="number" step="0.01" name="talla" required value="<?= htmlspecialchars($talla) ?>">
-
+                    <br><br>
                     <label for="edad">Edad (años):</label>
                     <input type="number" name="edad" required value="<?= htmlspecialchars($edad) ?>">
-
+                    <br><br>
                     <label>Sexo:</label>
                     <div class="radio-group">
                         <label><input type="radio" name="sexo" value="hombre" <?= $sexo === 'hombre' ? 'checked' : '' ?>> Hombre</label>
                         <label><input type="radio" name="sexo" value="mujer" <?= $sexo === 'mujer' ? 'checked' : '' ?>> Mujer</label>
                     </div>
-
+                    <br><br>    
                     <label for="actividad">Nivel de actividad física:</label>
                     <select name="actividad" required>
                         <option value="">Seleccione...</option>
                         <option value="sedentario" <?= $actividad === 'sedentario' ? 'selected' : '' ?>>Sedentario</option>
-                        <option value="ligero" <?= $actividad === 'ligero' ? 'selected' : '' ?>>Actividad ligera</option>
-                        <option value="moderado" <?= $actividad === 'moderado' ? 'selected' : '' ?>>Actividad moderada</option>
-                        <option value="intenso" <?= $actividad === 'intenso' ? 'selected' : '' ?>>Actividad intensa</option>
-                        <option value="muy_intenso" <?= $actividad === 'muy_intenso' ? 'selected' : '' ?>>Actividad muy intensa</option>
+                        <option value="ligera" <?= $actividad === 'ligera' ? 'selected' : '' ?>>Actividad ligera</option>
+                        <option value="moderada" <?= $actividad === 'moderada' ? 'selected' : '' ?>>Actividad moderada</option>
+                        <option value="intensa" <?= $actividad === 'intensa' ? 'selected' : '' ?>>Actividad intensa</option>
+                        <option value="muy_intensa" <?= $actividad === 'muy_intensa' ? 'selected' : '' ?>>Actividad muy intensa</option>
                     </select>
-
-                    <br>
+                    <br><br>
                     <button type="submit" class="btn">Calcular</button>
                 </form>
 
