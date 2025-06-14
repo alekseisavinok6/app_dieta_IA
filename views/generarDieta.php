@@ -25,10 +25,10 @@ $peso_actual = $_SESSION['peso'];
 $talla_metros = $_SESSION['talla'];
 $edad = $_SESSION['edad'];
 $sexo = $_SESSION['sexo'];
-$nivel_actividad_original = $_SESSION['actividad'] ?? 'moderado'; // Utilizamos el valor bruto de la actividad de calcularGEB
+$nivel_actividad_original = $_SESSION['actividad'] ?? 'moderada'; // Utilizamos el valor bruto de la actividad de calcularGEB
 $nivel_actividad_descriptivo = $_SESSION['calculo_energetico']['nivel_actividad'];
-$geb = $_SESSION['calculo_energetico']['geb'];
-$get = $_SESSION['calculo_energetico']['get'];
+$geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'];
+$get = $_SESSION['calculo_energetico']['gasto_energetico_total'];
 $vct_calculado_inicial = $_SESSION['calculo_energetico']['vct']; // Cálculo del VCT a partir del GEB
 
 // Obtener las preferencias del usuario a partir del formulario enviado
@@ -64,7 +64,7 @@ unset($_SESSION['error_dieta_app']);
 
         <div class="generarDieta-container flex-c box-s">
             <div class="generar-left">
-                <img src="../imgs/img3.jpg" alt="Imagen de fondo" />
+                <img src="../imgs/generar_dieta.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
                 <a href="<?= BASE_URL ?? '/' ?>index.php" class="logo">
@@ -95,10 +95,10 @@ unset($_SESSION['error_dieta_app']);
                             <label for="nivelActividad">Nivel de actividad física:</label>
                             <select name="nivelActividad" id="nivelActividad">
                                 <option value="1.2" <?= $nivel_actividad_original === 'sedentario' ? 'selected' : '' ?>>Inactivo (sedentario) 🧘🏽‍♂️</option>
-                                <option value="1.375" <?= $nivel_actividad_original === 'ligero' ? 'selected' : '' ?>>Actividad ligera 🤹🏻‍♂️</option>
-                                <option value="1.55" <?= $nivel_actividad_original === 'moderado' ? 'selected' : '' ?>>Actividad moderada 🤸🏻‍♂️</option>
-                                <option value="1.725" <?= $nivel_actividad_original === 'intenso' ? 'selected' : '' ?>>Actividad intensa 🚴🏻‍♀️</option>
-                                <option value="1.9" <?= $nivel_actividad_original === 'muy_intenso' ? 'selected' : '' ?>>Muy intenso 🚴🏻‍♀️🚴🏻‍♀️</option>
+                                <option value="1.375" <?= $nivel_actividad_original === 'ligera' ? 'selected' : '' ?>>Actividad ligera 🤹🏻‍♂️</option>
+                                <option value="1.55" <?= $nivel_actividad_original === 'moderada' ? 'selected' : '' ?>>Actividad moderada 🤸🏻‍♂️</option>
+                                <option value="1.725" <?= $nivel_actividad_original === 'intensa' ? 'selected' : '' ?>>Actividad intensa 🚴🏻‍♀️</option>
+                                <option value="1.9" <?= $nivel_actividad_original === 'muy_intensa' ? 'selected' : '' ?>>Muy intenso 🚴🏻‍♀️🚴🏻‍♀️</option>
                             </select>
                         </div>
                         <div class="objetivo">
@@ -106,9 +106,9 @@ unset($_SESSION['error_dieta_app']);
                             <select name="objetivo" id="objetivo">
                                 <?php
                                     $default_objetivo = '';
-                                    if ($clasificacion_oms === "Bajo peso") {
+                                    if ($clasificacion_oms === "bajo peso") {
                                         $default_objetivo = 'subirPeso';
-                                    } elseif (strpos($clasificacion_oms, 'Obesidad') !== false || $clasificacion_oms === 'Sobrepeso') {
+                                    } elseif (strpos($clasificacion_oms, 'obesidad') !== false || $clasificacion_oms === 'sobrepeso') {
                                         $default_objetivo = 'bajarPeso';
                                     } else {
                                         $default_objetivo = 'mantenerPeso';

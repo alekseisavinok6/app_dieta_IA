@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $sexo = $_SESSION['sexo'] ?? null;
     $nivel_actividad_original = $_SESSION['actividad'] ?? null; // por ejemplo, 'sedentario'
     $nivel_actividad_descriptivo = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null; // por ejemplo, 'Actividad sedentaria'
-    $geb = $_SESSION['calculo_energetico']['geb'] ?? null;
-    $get = $_SESSION['calculo_energetico']['get'] ?? null;
+    $geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'] ?? null;
+    $get = $_SESSION['calculo_energetico']['gasto_energetico_total'] ?? null;
     $vct_calculado_inicial = $_SESSION['calculo_energetico']['vct'] ?? null;
 
     // Comprobar si hay datos importantes disponibles
@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
 
 
     // --- 5. Llamada a la API de Gemini ---
-    $gemini_api_key = 'TU_API_KEY_DE_GEMINI'; // Reemplaza con tu clave de API de Gemini
+    $gemini_api_key = '';
     $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $gemini_api_key;
 
     $headers = [
