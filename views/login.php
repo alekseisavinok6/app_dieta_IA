@@ -42,7 +42,7 @@
                     }
                 ?>
                 <p class="form-msg hidden"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Error:</strong> Por favor, rellena el formulario correctamente.</p>
-                <input type="submit" class="btn" value="Iniciar Sesión"/>
+                <input type="submit" class="btn" value="Iniciar sesión"/>
             </form>
             <?php
             include("../controllers/loginController.php");
