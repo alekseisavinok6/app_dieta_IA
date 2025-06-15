@@ -29,7 +29,7 @@
 ?>
     <div class="registro-container box-s flex-c">
     <a href="<?= BASE_URL ?>index.php" class="logo">
-    <img src="<?= BASE_URL ?>imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;"></a>
+    <img src="<?= BASE_URL ?>imgs/logo-main-2.png" alt="DietaApp Logo" style="height: 60px;"></a>
     <p class="text-lg">Crea tu cuenta para empezar a crear dietas</p>
     <form id="registro-form" class="registro-form flex-c" action="../controllers/registroController.php" method="POST">
         <div>

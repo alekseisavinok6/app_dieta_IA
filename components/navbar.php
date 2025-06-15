@@ -11,11 +11,10 @@
 
 <nav class="navbar flex-c box-s">
   <a href="<?= BASE_URL ?>index.php" class="logo">
-   <img src="<?= BASE_URL ?>imgs/logo.png" alt="DietaApp Logo" style="height: 45px;"></a>
+   <img src="<?= BASE_URL ?>imgs/logo-main-2.png" alt="DietaApp Logo" style="height: 60px;"></a>
   <?php if(isset($_SESSION['id_cliente'])): ?>
     <div class="two-buttons menu-links">
       <a href="<?= BASE_URL ?>controllers/logoutController.php" class="menu-link"><button class="btn">Cerrar sesión</button></a>
-      <!-- <a href="<?= BASE_URL ?>views/generarDieta.php" class="menu-link"><button class="btn">Generar Dieta</button></a> -->
       <a href="<?= BASE_URL ?>views/perfil.php"><button class="btn btn-perfil"> <?= $inicial ?></button></a>
     </div>
   <?php else: ?>

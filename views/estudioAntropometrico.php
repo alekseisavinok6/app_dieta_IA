@@ -100,9 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <img src="../imgs/antropometria.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
-                <a href="<?= BASE_URL ?>index.php" class="logo">
-                    <img src="<?= BASE_URL ?>imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;">
-                </a>
                 <h3><i>Paso 1: Estudio antropométrico</i> 📑</h3>
 
                 <?php if (isset($mensaje)): ?>

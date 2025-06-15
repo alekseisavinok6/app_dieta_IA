@@ -33,13 +33,11 @@
         <header class="banner flex-c">
             <h1>Dieta <span class="word"><span id="changing-word">inteligente</span></span></h1>
             <p class="text-lg">
-              Obtén tu dieta saludable <br />
-              basada en tus necesidades y objetivos
+              Obtén tu dieta saludable basada en tus necesidades y objetivos
             </p>
-            <br>
             <?php if(isset($_SESSION['id_cliente'])): ?>
-            <div class="two-buttons">
-                  <a href="views/estudioAntropometrico.php"><button class="btn">Pulsa para iniciar</button></a>
+              <div class="two-buttons">
+              <a href="views/estudioAntropometrico.php"><button class="btn">Pulsa para iniciar</button></a>
             </div>
             <?php /* else: ?>
               <div class="two-buttons">
@@ -48,6 +46,7 @@
               </div>
             <?php */ endif; ?>
         </header>
+        <br>
 
         <div class="home-cards flex-c">
             <div class="card box-s">

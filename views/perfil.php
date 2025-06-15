@@ -38,7 +38,7 @@
           <div class="profile-icon">
             <?= $inicial ?>
           </div>
-          <div class="list-dieta-container box-s">
+          <!-- <div class="list-dieta-container box-s">
             <h3 class="dieta-title">Dietas</h3>
             <ul class="list-dieta">
               <li class="dieta-item"><a href="#" class="dieta-link" >Dieta 1</a></li>
@@ -50,13 +50,13 @@
               <li class="dieta-item"><a href="#" class="dieta-link">Domingo</a></li>
               <li class="dieta-item"><a href="#" class="dieta-link">28-03-2001</a></li>
             </ul>
-          </div>
+          </div> -->
           <!-- <a href="../views/generarDieta.php"><button class="btn btn-lg">Generar Dieta</button></a> -->
         </div>
 
         <!-- DERECHA -->
         <div class="profile-right-container flex-c">
-          <h1>Hola <?= $nombre ?> <?= $apellido ?>!</h1>
+          <h1>¡Hola, <?= $nombre ?> <?= $apellido ?>!</h1>
           <div class="data-profile-container box-s">
             <div class="actual-data-profile flex-c">
               <h3>Ajustes</h3>

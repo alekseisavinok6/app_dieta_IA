@@ -163,7 +163,7 @@ label {
   background-repeat: no-repeat;
   color: white;
   border-radius: 10px;
-  padding: 5%;
+  padding: 4%;
   flex-direction: column;
   height: 350px;
 }
@@ -307,7 +307,7 @@ label {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: none; /* Mantiene tamaño real de la imagen */
 }
 
 /* LOGIN RIGHT*/

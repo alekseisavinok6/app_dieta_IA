@@ -16,8 +16,8 @@ $actividad = $_SESSION['actividad'] ?? '';
 $peso_ideal = $_SESSION['peso_ideal'] ?? null;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $peso = floatval($_POST['peso'] ?? 0);
-    $talla = floatval($_POST['talla'] ?? 0);
+    //$peso = floatval($_POST['peso'] ?? 0);
+    //$talla = floatval($_POST['talla'] ?? 0);
     $edad = intval($_POST['edad'] ?? 0);
     $sexo = $_POST['sexo'] ?? '';
     $actividad = $_POST['actividad'] ?? '';
@@ -148,6 +148,20 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
             border-color: #999; /* Borde más oscuro al pasar el ratón */
             color: #000; /* Texto más oscuro al pasar el ratón */
 }
+
+.radio-group label {
+  font-size: 18px;         /* Tamaño del texto */
+  display: flex;
+  align-items: center;
+  gap: 2px;                /* Espacio entre botón y texto */
+}
+
+.radio-group input[type="radio"] {
+  transform: scale(0.5);   /* Escala el botón */
+  margin: 0;
+  accent-color: #328e6e;   /* Cambia el color al estilo de tu app */
+}
+
 </style>
 </head>
 <body>
@@ -158,34 +172,24 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                 <img src="../imgs/calculo_gasto_energetico.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
-                <a href="<?= BASE_URL ?>index.php" class="logo">
-                    <img src="<?= BASE_URL ?>imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;">
-                </a>
-
                 <h3><i>Paso 2: Cálculo del gasto energético</i> 🔥</h3>
-
                 <?php if (!empty($mensaje)): ?>
                     <p style="color:green;"><?= $mensaje ?></p>
                 <?php elseif (!empty($error)): ?>
                     <p style="color:red;"><?= $error ?></p>
                 <?php endif; ?>
-
                 <form action="calcularGEB.php" method="POST">
-                    <label for="peso">Peso (kg):</label>
+                    <!-- <label for="peso">Peso (kg):</label>
                     <input type="number" step="0.01" name="peso" required value="<?= htmlspecialchars($peso) ?>">
-                    <br><br>
                     <label for="talla">Talla (m):</label>
-                    <input type="number" step="0.01" name="talla" required value="<?= htmlspecialchars($talla) ?>">
-                    <br><br>
+                    <input type="number" step="0.01" name="talla" required value="<?= htmlspecialchars($talla) ?>"> -->
                     <label for="edad">Edad (años):</label>
                     <input type="number" name="edad" required value="<?= htmlspecialchars($edad) ?>">
-                    <br><br>
                     <label>Sexo:</label>
                     <div class="radio-group">
                         <label><input type="radio" name="sexo" value="hombre" <?= $sexo === 'hombre' ? 'checked' : '' ?>> Hombre</label>
                         <label><input type="radio" name="sexo" value="mujer" <?= $sexo === 'mujer' ? 'checked' : '' ?>> Mujer</label>
                     </div>
-                    <br><br>    
                     <label for="actividad">Nivel de actividad física:</label>
                     <select name="actividad" required>
                         <option value="">Seleccione...</option>
@@ -195,11 +199,9 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                         <option value="intensa" <?= $actividad === 'intensa' ? 'selected' : '' ?>>Actividad intensa</option>
                         <option value="muy_intensa" <?= $actividad === 'muy_intensa' ? 'selected' : '' ?>>Actividad muy intensa</option>
                     </select>
-                    <br><br>
                     <button type="submit" class="btn">Calcular</button>
                 </form>
                     <a href="<?= BASE_URL ?>views/generarDieta.php"><button class="btn-relleno-suave-pequeno-cursiva">➡︎ Siguiente paso</button></a>
-
                 <?php if ($geb && $get && $vct): ?>
                     <div class="resultados">
                         <p><strong>GEB:</strong> <?= number_format($geb, 2) ?> kcal/día</p>

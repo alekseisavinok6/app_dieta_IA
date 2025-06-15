@@ -67,12 +67,7 @@ unset($_SESSION['error_dieta_app']);
                 <img src="../imgs/generar_dieta.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
-                <a href="<?= BASE_URL ?? '/' ?>index.php" class="logo">
-                    <img src="<?= BASE_URL ?? '/' ?>imgs/logo2.png" alt="Logotipo de DietaApp" style="height: 60px;">
-                </a>
-
                 <h3><i>Paso 3: Generación de dietas con IA</i> 🤖</h3>
-
                 <?php if ($dieta_generada): ?>
                     <div class="dieta-generada-box">
                         <h3>Tu dieta personalizada:</h3>
@@ -83,7 +78,7 @@ unset($_SESSION['error_dieta_app']);
                          <button type="button" class="btn" onclick="window.print()">Imprimir la dieta</button>
                     </div>
                 <?php else: // Mostrar formulario si aún no se ha generado la dieta ?>
-                    <p class="text-lg">Envía un formulario con tus preferencias para generar una dieta.</p>
+                    <!-- <p class="text-lg">Envía un formulario con tus preferencias para generar una dieta.</p> -->
                     <?php if (!empty($mensaje)): ?>
                         <p style="color:green;"><?= $mensaje ?></p>
                     <?php elseif (!empty($error)): ?>

@@ -26,7 +26,7 @@
         </div>
         <div class="login-right">
             <a class="login-top" href="../index.php">
-            <img src="../imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;"></a>
+            <img src="../imgs/logo-main-2.png" alt="DietaApp Logo" style="height: 60px;"></a>
             <h3>¡Bienvenido(a)!</h3>
             <p class="text-lg">Inicia sesión para acceder a tus dietas personalizadas</p>
             <form id="login-form" class="login-form flex-c" action="../controllers/loginController.php" method="POST"> <!-- Cambia la acción al controlador correspondiente -->
@@ -47,7 +47,6 @@
             <?php
             include("../controllers/loginController.php");
             ?>
-            </p>
             <p class="text-md">¿No tienes su cuenta? <a href="registro.php" class="link">Regístrate</a></p>
             <p class="text-md"><a href="../views/login.php" class="link disable">¿Has olvidado la contraseña?</a></p>    
         </div>
