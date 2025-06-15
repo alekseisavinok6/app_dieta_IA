@@ -71,7 +71,7 @@ unset($_SESSION['error_dieta_app']);
                     <img src="<?= BASE_URL ?? '/' ?>imgs/logo2.png" alt="Logotipo de DietaApp" style="height: 60px;">
                 </a>
 
-                <h2>Generación de dietas con IA 🤖</h2>
+                <h3><i>Paso 3: Generación de dietas con IA</i> 🤖</h3>
 
                 <?php if ($dieta_generada): ?>
                     <div class="dieta-generada-box">
@@ -142,7 +142,7 @@ unset($_SESSION['error_dieta_app']);
                             <textarea name="comentario" id="comentario" placeholder="Ejemplo: No me gusta el atún, soy alérgico al maní, prefiero la comida rápida."><?= htmlspecialchars($comentario_form) ?></textarea>
                         </div>
                         <p class="form-msg hidden"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Error:</strong> Por favor, rellene el formulario correctamente.</p>
-                        <input type="submit" value="Generar dieta" name="generarDieta" class="btn">
+                        <input type="submit" value="Generar dieta" name="generarDieta" class="btn" style="width: 160px;">
                     </form>
                 <?php endif; ?>
             </div>

@@ -123,6 +123,32 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
     <meta charset="UTF-8">
     <title>Cálculo GEB, GET y VCT</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .btn-relleno-suave-pequeno-cursiva {
+            display: inline-block;
+            /* Reducimos el padding para un botón más pequeño */
+            padding: 6px 12px;
+            /* Reducimos el tamaño de la fuente */
+            font-size: 14px;
+            font-weight: bold;
+            /* Añadimos font-style: italic para el texto en cursiva */
+            font-style: italic;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: 2px solid #ccc; /* Borde inicial gris claro */
+            border-radius: 5px;
+            color: #333; /* Texto inicial gris oscuro */
+            background-color: #fff; /* Fondo inicial blanco */
+            transition: all 0.3s ease; /* Transición suave para todos los cambios */
+}
+
+            .btn-relleno-suave-pequeno-cursiva:hover {
+            background-color: #f0f0f0; /* Fondo ligeramente gris al pasar el ratón */
+            border-color: #999; /* Borde más oscuro al pasar el ratón */
+            color: #000; /* Texto más oscuro al pasar el ratón */
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -136,7 +162,7 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                     <img src="<?= BASE_URL ?>imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;">
                 </a>
 
-                <h2>Cálculo del Gasto Energético 🔥</h2>
+                <h3><i>Paso 2: Cálculo del gasto energético</i> 🔥</h3>
 
                 <?php if (!empty($mensaje)): ?>
                     <p style="color:green;"><?= $mensaje ?></p>
@@ -172,6 +198,7 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                     <br><br>
                     <button type="submit" class="btn">Calcular</button>
                 </form>
+                    <a href="<?= BASE_URL ?>views/generarDieta.php"><button class="btn-relleno-suave-pequeno-cursiva">➡︎ Siguiente paso</button></a>
 
                 <?php if ($geb && $get && $vct): ?>
                     <div class="resultados">

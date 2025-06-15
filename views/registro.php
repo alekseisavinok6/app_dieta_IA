@@ -125,7 +125,7 @@
             }
         ?>
         <p class="form-msg hidden"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Error:</strong> Por favor, rellena el formulario correctamente.</p>
-        <input type="submit" name="registrar" class="btn" value="Registrarse"/>
+        <input type="submit" name="registrar" class="btn" value="Registrarse" style="width: 160px;"/>
         <p class="text-md">¿Ya tienes su cuenta? <a href="login.php" class="link">Iniciar sesión</a></p>    
     </form>
 </div>

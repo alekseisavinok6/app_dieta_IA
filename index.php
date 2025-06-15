@@ -36,11 +36,10 @@
               Obtén tu dieta saludable <br />
               basada en tus necesidades y objetivos
             </p>
+            <br>
             <?php if(isset($_SESSION['id_cliente'])): ?>
             <div class="two-buttons">
-                  <a href="views/estudioAntropometrico.php"><button class="btn">Estudio Antropométrico</button></a>
-                  <a href="views/calcularGEB.php"><button class="btn">Cálculo Energético</button></a>
-                  <a href="views/generarDieta.php"><button class="btn">Generar Dieta</button></a>
+                  <a href="views/estudioAntropometrico.php"><button class="btn">Pulsa para iniciar</button></a>
             </div>
             <?php /* else: ?>
               <div class="two-buttons">
