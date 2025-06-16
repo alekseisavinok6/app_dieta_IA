@@ -32,7 +32,7 @@
       <?php include "components/navbar.php"?>
         <header class="banner flex-c">
             <h1>Dieta <span class="word"><span id="changing-word">inteligente</span></span></h1><br>
-            <p class="text-lg">
+            <p class="text-lg" style="color: #fff;">
               ✔️DietaIA te ayuda a alcanzar tus objetivos de salud con planes personalizados <br> 
               ✔️Nuestra IA crea dietas adaptadas a ti, sin ingredientes que no quieres ni necesitas <br> 
               ✔️¡Come mejor, vive mejor!

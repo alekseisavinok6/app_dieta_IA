@@ -57,6 +57,50 @@ unset($_SESSION['error_dieta_app']);
     <title>Generar Dieta Personalizada</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    /* Estilos para el tooltip */
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 0.85em; /* Para hacer el icono ℹ️ más pequeño */
+        margin-left: 5px;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 240px;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: left;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Posiciona arriba del ícono */
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            font-size: 1em; /* Tamaño discreto del texto */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+            /* Esto ajusta el tamaño del ícono ℹ️ y el texto del tooltip cuando está dentro de encabezados */
+        .small-tooltip {
+        font-size: 0.65em; /* Hace que ℹ️ no herede el tamaño grande de <h3> */
+        }
+
+        .small-tooltip .tooltiptext {
+        font-size: 0.9em; /* Igual que en otras partes como <label> */
+        width: 240px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -123,7 +167,17 @@ unset($_SESSION['error_dieta_app']);
                             </select>
                         </div>
                         <div class="preferencias">
-                            <label for="preferencias">Tipo de dieta (opcional):</label>
+                            <label for="preferencias">
+                                Tipo de dieta (opcional):
+                                <span class="tooltip">ℹ️
+                                    <span class="tooltiptext">
+                                        <strong>Ovolactovegetariano:</strong> Incluye huevos y lácteos, pero no carne ni pescado.<br><br>
+                                        <strong>Vegano:</strong> Excluye todos los productos de origen animal.<br><br>
+                                        <strong>Cetogénica:</strong> Alta en grasas y muy baja en carbohidratos.<br><br>
+                                        <strong>Sin gluten:</strong> Excluye alimentos que contienen gluten, como trigo, cebada y centeno.
+                                    </span>
+                                </span>
+                            </label>
                             <select name="preferencias" id="preferencias">
                                 <option value="" <?= empty($preferencias_form) ? 'selected' : '' ?>>Normal (sin restricciones especiales)</option>
                                 <option value="ovolactovegetariana" <?= ($preferencias_form === 'ovolactovegetariana') ? 'selected' : '' ?>>Ovolactovegetariano</option>

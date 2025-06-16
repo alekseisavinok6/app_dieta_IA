@@ -195,7 +195,48 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
             background-color: #328e6e;
             }
 
+            /* Estilos para el tooltip */
+        .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 0.85em; /* Para hacer el icono ℹ️ más pequeño */
+        margin-left: 5px;
+        }
 
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 240px;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: left;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Posiciona arriba del ícono */
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            font-size: 1em; /* Tamaño discreto del texto */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+            /* Esto ajusta el tamaño del ícono ℹ️ y el texto del tooltip cuando está dentro de encabezados */
+        .small-tooltip {
+        font-size: 0.65em; /* Hace que ℹ️ no herede el tamaño grande de <h3> */
+        }
+
+        .small-tooltip .tooltiptext {
+        font-size: 0.9em; /* Igual que en otras partes como <label> */
+        width: 240px;
+        }
 </style>
 </head>
 <body>
@@ -206,7 +247,13 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                 <img src="../imgs/calculo_gasto_energetico.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
-                <h3><i>Paso 2: Cálculo del gasto energético</i> 🔥</h3>
+                <h3><i>Paso 2: Cálculo del gasto energético</i> 🔥
+                    <span class="tooltip small-tooltip">ℹ️
+                        <span class="tooltiptext">
+                        El gasto energético es la cantidad de energía (calorías) que tu cuerpo necesita diariamente para funcionar, teniendo en cuenta tu metabolismo basal y tu nivel de actividad física.
+                        </span>
+                    </span>
+                </h3>
                 <?php if (!empty($mensaje)): ?>
                     <p style="color:green;"><?= $mensaje ?></p>
                 <?php elseif (!empty($error)): ?>
@@ -252,10 +299,34 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                     <a href="<?= BASE_URL ?>views/generarDieta.php"><button class="btn-relleno-suave-pequeno-cursiva">➡︎ Siguiente paso</button></a>
                 <?php if ($geb && $get && $vct): ?>
                     <div class="resultados">
-                        <p><strong>GEB:</strong> <?= number_format($geb, 2) ?> kcal/día</p>
-                        <p><strong>GET:</strong> <?= number_format($get, 2) ?> kcal/día</p>
-                        <p><strong>VCT:</strong> <?= number_format($vct, 2) ?> kcal/día</p>
-                        <p><strong>Nivel de actividad:</strong> <?= htmlspecialchars($nivel_actividad) ?></p>
+                        <p><strong>GEB:</strong> <?= number_format($geb, 2) ?> kcal/día
+                            <span class="tooltip">ℹ️
+                                <span class="tooltiptext">
+                                    Gasto Energético Basal (GEB): es la energía mínima que tu cuerpo necesita para funciones vitales como respirar y mantener la temperatura corporal en reposo.
+                                </span>
+                            </span>
+                        </p>
+                        <p><strong>GET:</strong> <?= number_format($get, 2) ?> kcal/día
+                            <span class="tooltip">ℹ️
+                                <span class="tooltiptext">
+                                    Gasto Energético Total (GET) es la suma del gasto energético basal (GEB), la actividad física y otros factores como la digestión de alimentos.
+                                </span>
+                            </span>
+                        </p>
+                        <p><strong>VCT:</strong> <?= number_format($vct, 2) ?> kcal/día
+                            <span class="tooltip">ℹ️
+                                <span class="tooltiptext">
+                                    Valor Calórico Total (VCT) es la cantidad total de calorías que se recomienda consumir al día para alcanzar tu objetivo (mantener, subir o bajar de peso).
+                                </span>
+                            </span>
+                        </p>
+                        <p><strong>Nivel de actividad:</strong> <?= htmlspecialchars($nivel_actividad) ?>
+                            <span class="tooltip">ℹ️
+                                <span class="tooltiptext">
+                                    Se refiere a cuán activo físicamente eres en tu día a día. Incluye tu rutina laboral y deportiva. Este valor afecta al cálculo del gasto energético total.
+                                </span>
+                            </span>
+                        </p>
                     </div>
                 <?php endif; ?>
             </div>
