@@ -109,9 +109,9 @@ unset($_SESSION['error_dieta_app']);
                                         $default_objetivo = 'mantenerPeso';
                                     }
                                 ?>
-                                <option value="subirPeso" <?= ($objetivo_form === 'subirPeso' || $default_objetivo === 'subirPeso') ? 'selected' : '' ?>>Subir peso</option>
-                                <option value="mantenerPeso" <?= ($objetivo_form === 'mantenerPeso' || $default_objetivo === 'mantenerPeso') ? 'selected' : '' ?>>Mantener peso</option>
-                                <option value="bajarPeso" <?= ($objetivo_form === 'bajarPeso' || $default_objetivo === 'bajarPeso') ? 'selected' : '' ?>>Bajar peso</option>
+                                <option value="subirPeso" <?= ($objetivo_form === 'subirPeso' || $default_objetivo === 'subirPeso') ? 'selected' : '' ?>>Subir peso ☝️</option>
+                                <option value="mantenerPeso" <?= ($objetivo_form === 'mantenerPeso' || $default_objetivo === 'mantenerPeso') ? 'selected' : '' ?>>Mantener peso 👍</option>
+                                <option value="bajarPeso" <?= ($objetivo_form === 'bajarPeso' || $default_objetivo === 'bajarPeso') ? 'selected' : '' ?>>Bajar peso 👇</option>
                             </select>
                         </div>
                         <div class="comidasDia">

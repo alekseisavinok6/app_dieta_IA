@@ -241,11 +241,11 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                     <label for="actividad">Nivel de actividad física:</label>
                     <select name="actividad" required>
                         <option value="">Seleccione...</option>
-                        <option value="sedentario" <?= $actividad === 'sedentario' ? 'selected' : '' ?>>Sedentario</option>
-                        <option value="ligera" <?= $actividad === 'ligera' ? 'selected' : '' ?>>Actividad ligera</option>
-                        <option value="moderada" <?= $actividad === 'moderada' ? 'selected' : '' ?>>Actividad moderada</option>
-                        <option value="intensa" <?= $actividad === 'intensa' ? 'selected' : '' ?>>Actividad intensa</option>
-                        <option value="muy_intensa" <?= $actividad === 'muy_intensa' ? 'selected' : '' ?>>Actividad muy intensa</option>
+                        <option value="sedentario" <?= $actividad === 'sedentario' ? 'selected' : '' ?>>Sedentario 🧘🏽‍♂️</option>
+                        <option value="ligera" <?= $actividad === 'ligera' ? 'selected' : '' ?>>Actividad ligera 🤹🏻‍♂️</option>
+                        <option value="moderada" <?= $actividad === 'moderada' ? 'selected' : '' ?>>Actividad moderada 🤸🏻‍♂️</option>
+                        <option value="intensa" <?= $actividad === 'intensa' ? 'selected' : '' ?>>Actividad intensa 🚴🏻‍♀️</option>
+                        <option value="muy_intensa" <?= $actividad === 'muy_intensa' ? 'selected' : '' ?>>Actividad muy intensa 🚴🏻‍♀️🚴🏻‍♀️</option>
                     </select><br><br>
                     <button type="submit" class="btn">Calcular</button>
                 </form>

@@ -27,7 +27,7 @@
         <div class="login-right">
             <a class="login-top" href="../index.php">
             <img src="../imgs/logo-main-2.png" alt="DietaApp Logo" style="height: 60px;"></a>
-            <h3>¡Bienvenido(a)!</h3>
+            <h3>¡Bienvenido(a)! 👋</h3>
             <p class="text-lg">Inicia sesión para acceder a tus dietas personalizadas</p>
             <form id="login-form" class="login-form flex-c" action="../controllers/loginController.php" method="POST"> <!-- Cambia la acción al controlador correspondiente -->
                 <div>
