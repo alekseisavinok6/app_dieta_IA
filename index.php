@@ -31,10 +31,12 @@
     <div class="container flex-c">
       <?php include "components/navbar.php"?>
         <header class="banner flex-c">
-            <h1>Dieta <span class="word"><span id="changing-word">inteligente</span></span></h1>
+            <h1>Dieta <span class="word"><span id="changing-word">inteligente</span></span></h1><br>
             <p class="text-lg">
-              Obtén tu dieta saludable basada en tus necesidades y objetivos
-            </p>
+              DietaIA te ayuda a alcanzar tus objetivos de salud con planes personalizados <br> 
+              Nuestra IA crea dietas adaptadas a ti, sin ingredientes que no quieres ni necesitas <br> 
+              ¡Come mejor, vive mejor!
+            </p><br>
             <?php if(isset($_SESSION['id_cliente'])): ?>
               <div class="two-buttons">
               <a href="views/estudioAntropometrico.php"><button class="btn">Pulsa para iniciar</button></a>
@@ -49,17 +51,17 @@
         <br>
 
         <div class="home-cards flex-c">
-            <div class="card box-s">
+            <div class="card box-s" style="width: 380px; height: 200px;">
                 <i class="fa-solid fa-utensils"></i>
                 <h3>Personalizada</h3>
                 <p>Recibe un plan de alimentación único, creado especificamente para ti</p>
             </div>
-            <div class="card box-s">
+            <div class="card box-s" style="width: 380px; height: 200px;">
                 <i class="fa-solid fa-leaf"></i>
                 <h3>Nutritiva</h3>
                 <p>Proporcionamos los nutrientes esenciales que tu cuerpo necesita</p>
             </div>
-            <div class="card box-s">
+            <div class="card box-s" style="width: 380px; height: 200px;">
                 <i class="fa-solid fa-microchip"></i>
                 <h3>Inteligente</h3>
                 <p>Nuestra IA analiza tus datos, necesidades y preferencias</p>
