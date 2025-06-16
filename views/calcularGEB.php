@@ -149,18 +149,52 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
             color: #000; /* Texto más oscuro al pasar el ratón */
 }
 
-.radio-group label {
-  font-size: 18px;         /* Tamaño del texto */
-  display: flex;
-  align-items: center;
-  gap: 2px;                /* Espacio entre botón y texto */
-}
+            .radio-group {
+            display: flex;
+            gap: 20px; /* espacio entre Hombre y Mujer */
+            margin-top: 5px;
+            align-items: center;
+            }
 
-.radio-group input[type="radio"] {
-  transform: scale(0.5);   /* Escala el botón */
-  margin: 0;
-  accent-color: #328e6e;   /* Cambia el color al estilo de tu app */
-}
+            .custom-radio {
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            }
+
+            .custom-radio input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            }
+
+            .radio-mark {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 16px;
+            width: 16px;
+            background-color: white;
+            border: 2px solid #328e6e;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            }
+
+            .custom-radio input[type="radio"]:checked ~ .radio-mark::after {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #328e6e;
+            }
+
 
 </style>
 </head>
@@ -185,11 +219,25 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                     <input type="number" step="0.01" name="talla" required value="<?= htmlspecialchars($talla) ?>"> -->
                     <label for="edad">Edad (años):</label>
                     <input type="number" name="edad" required value="<?= htmlspecialchars($edad) ?>">
-                    <label>Sexo:</label>
+                    <div class="form-group">
+                    <br>
+                    <label for="sexo">Sexo:</label>
                     <div class="radio-group">
-                        <label><input type="radio" name="sexo" value="hombre" <?= $sexo === 'hombre' ? 'checked' : '' ?>> Hombre</label>
-                        <label><input type="radio" name="sexo" value="mujer" <?= $sexo === 'mujer' ? 'checked' : '' ?>> Mujer</label>
+                        <label class="custom-radio">
+                        <input type="radio" name="sexo" value="hombre" <?= $sexo === 'hombre' ? 'checked' : '' ?>>
+                        <span class="radio-mark"></span>
+                        Hombre
+                        </label>
+                        <br>
+                        <label class="custom-radio">
+                        <input type="radio" name="sexo" value="mujer" <?= $sexo === 'mujer' ? 'checked' : '' ?>>
+                        <span class="radio-mark"></span>
+                        Mujer
+                        </label>
                     </div>
+                    </div>
+                    <br>
+
                     <label for="actividad">Nivel de actividad física:</label>
                     <select name="actividad" required>
                         <option value="">Seleccione...</option>
@@ -198,7 +246,7 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                         <option value="moderada" <?= $actividad === 'moderada' ? 'selected' : '' ?>>Actividad moderada</option>
                         <option value="intensa" <?= $actividad === 'intensa' ? 'selected' : '' ?>>Actividad intensa</option>
                         <option value="muy_intensa" <?= $actividad === 'muy_intensa' ? 'selected' : '' ?>>Actividad muy intensa</option>
-                    </select>
+                    </select><br><br>
                     <button type="submit" class="btn">Calcular</button>
                 </form>
                     <a href="<?= BASE_URL ?>views/generarDieta.php"><button class="btn-relleno-suave-pequeno-cursiva">➡︎ Siguiente paso</button></a>
