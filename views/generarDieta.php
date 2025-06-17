@@ -108,6 +108,9 @@ unset($_SESSION['error_dieta_app']);
 
         <div class="generarDieta-container flex-c box-s">
             <div class="generar-left">
+                <?php if(isset($_SESSION['id_cliente'])): ?>
+                <div style="font-size: larger;">Sesión activa para: <strong><?= $_SESSION['nombre'] ?> <?= $_SESSION['apellido'] ?></strong></div>
+                <?php endif; ?>
                 <img src="../imgs/generar_dieta.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">

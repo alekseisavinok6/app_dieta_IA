@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2025 at 09:54 PM
+-- Generation Time: Jun 17, 2025 at 12:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,10 +57,10 @@ CREATE TABLE `clientes` (
   `correo` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `edad` int(11) NOT NULL,
-  `sexo` enum('Hombre','Mujer') NOT NULL,
-  `altura` int(11) NOT NULL,
-  `peso` int(11) NOT NULL,
-  `peso_deseado` int(11) DEFAULT NULL,
+  `sexo` enum('hombre','mujer') NOT NULL,
+  `altura` float(5,2) NOT NULL,
+  `peso` decimal(5,2) NOT NULL,
+  `peso_deseado` decimal(5,2) DEFAULT NULL,
   `enfermedades` text DEFAULT NULL,
   `alergias` text DEFAULT NULL,
   `intolerancias` text DEFAULT NULL
@@ -71,7 +71,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `correo`, `password`, `edad`, `sexo`, `altura`, `peso`, `peso_deseado`, `enfermedades`, `alergias`, `intolerancias`) VALUES
-(2, 'Aleksei', 'Savinok', 'aleksei6madrid@gmail.com', '$2y$10$BW0tpo1tlSzbZe.sqSBKm.NGFXlr9jVO4I2F1ihXKBhf.6fpYFz5O', 44, 'Hombre', 180, 80, 80, 'NULL', '', 'NULL');
+(4, 'Maria', 'Carmen', 'maria94madrid@gmail.com', '$2y$10$eqm58XRyzcZkr6vNTzTITOn93VBg.Lk74h.Il/5L3TOT8jVrtqvay', 30, 'mujer', 180.00, 80.00, NULL, 'diabetes', 'frutosSecos', 'lactosa');
 
 -- --------------------------------------------------------
 
@@ -81,25 +81,25 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `correo`, `password`
 
 CREATE TABLE `datos_cliente` (
   `id_cliente` int(11) NOT NULL,
-  `sexo` enum('masculino','femenino') NOT NULL,
-  `actividad` enum('sedentario','ligero','moderado','intenso','muy_intenso') NOT NULL,
-  `peso` decimal(5,2) NOT NULL,
-  `talla` float(5,2) DEFAULT NULL,
+  `sexo` enum('hombre','mujer') NOT NULL,
   `edad` int(11) NOT NULL,
-  `geb` decimal(7,2) NOT NULL,
-  `get` double DEFAULT NULL,
-  `vct` double DEFAULT NULL,
-  `imc` float DEFAULT NULL,
+  `talla` float(5,2) DEFAULT NULL,
+  `peso` decimal(5,2) NOT NULL,
   `peso_ideal` float DEFAULT NULL,
-  `clasificacion` varchar(50) DEFAULT NULL
+  `clasificacion` varchar(50) DEFAULT NULL,
+  `actividad` enum('sedentario','ligera','moderada','intensa','muy_intensa') NOT NULL,
+  `imc` float(5,2) DEFAULT NULL,
+  `gasto_energetico_basal` decimal(7,2) NOT NULL,
+  `gasto_energetico_total` double(7,2) DEFAULT NULL,
+  `vct` double(7,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `datos_cliente`
 --
 
-INSERT INTO `datos_cliente` (`id_cliente`, `sexo`, `actividad`, `peso`, `talla`, `edad`, `geb`, `get`, `vct`, `imc`, `peso_ideal`, `clasificacion`) VALUES
-(2, '', 'ligero', 80.00, 1.80, 36, 1823.14, 2506.8174999999997, 2342.45, 24.6914, 71.28, 'Peso normal');
+INSERT INTO `datos_cliente` (`id_cliente`, `sexo`, `edad`, `talla`, `peso`, `peso_ideal`, `clasificacion`, `actividad`, `imc`, `gasto_energetico_basal`, `gasto_energetico_total`, `vct`) VALUES
+(4, 'hombre', 59, 1.90, 110.00, 79.42, 'obesidad grado I', 'sedentario', 30.47, 2129.85, 2555.81, 2052.33);
 
 -- --------------------------------------------------------
 
@@ -269,7 +269,7 @@ ALTER TABLE `alimentos`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `dieta`

@@ -79,9 +79,9 @@
                 <div class="checkbox-container alergenos-container flex-c">
                     <label for="alergenos">Alérgenos</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="alergenos[]" value="huevo"> Huevo</label>
-                        <label><input type="checkbox" name="alergenos[]" value="frutosSecos"> Frutos Secos</label>
-                        <label><input type="checkbox" name="alergenos[]" value="NULL"> Ninguna</label>
+                        <label><input type="checkbox" name="alergenos[]" value="huevos">Huevos</label>
+                        <label><input type="checkbox" name="alergenos[]" value="frutos secos">Frutos secos</label>
+                        <label><input type="checkbox" name="alergenos[]" value="NULL">Ninguna</label>
                     </div>
                 </div>
                 <p class="input-alergenos-error input-registro-error no-display">Selecciona una opción</p>

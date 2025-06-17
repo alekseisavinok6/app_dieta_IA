@@ -244,6 +244,9 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
         <?php include "../components/navbar.php"; ?>
         <div class="generarDieta-container flex-c box-s">
             <div class="generar-left">
+                <?php if(isset($_SESSION['id_cliente'])): ?>
+                <div style="font-size: larger;">Sesión activa para: <strong><?= $_SESSION['nombre'] ?> <?= $_SESSION['apellido'] ?></strong></div>
+                <?php endif; ?>
                 <img src="../imgs/calculo_gasto_energetico.png" alt="Imagen de fondo" />
             </div>
             <div class="generar-right">
