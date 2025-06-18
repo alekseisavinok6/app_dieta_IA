@@ -29,8 +29,8 @@
 ?>
     <div class="registro-container box-s flex-c">
     <a href="<?= BASE_URL ?>index.php" class="logo">
-    <img src="<?= BASE_URL ?>imgs/logo2.png" alt="DietaApp Logo" style="height: 60px;"></a>
-    <p class="text-lg">Crea tu cuenta para empezar a crear dietas</p>
+    <img src="<?= BASE_URL ?>imgs/logo-main-2.png" alt="DietaApp Logo" style="height: 60px;"></a>
+    <p class="text-lg">Crea tu cuenta para empezar a crear dietas 🍽️</p>
     <form id="registro-form" class="registro-form flex-c" action="../controllers/registroController.php" method="POST">
         <div>
             <div class="form-name">
@@ -60,12 +60,12 @@
                 <p class="input-altura-error input-registro-error no-display">La altura introducida no es válida</p>
             </div>
             <div class="client-data-input form-nacimiento">
-                <label for="f_nacimiento">Fecha Nacimiento</label>
+                <label for="f_nacimiento">Fecha nacimiento</label>
                 <input type="date" name="f_nacimiento" id="f_nacimiento" />
                 <p class="input-fNacimiento-error input-registro-error no-display">La fecha introducida no es válida</p>
             </div>
             <div class="client-data-input form-sexo">
-                <label for="Sexo">Sexo Biológico</label>
+                <label for="Sexo">Sexo biológico</label>
                 <select name="sexo" id="sexo">
                     <option value="Hombre" selected>Hombre</option>
                     <option value="Mujer">Mujer</option>
@@ -79,9 +79,9 @@
                 <div class="checkbox-container alergenos-container flex-c">
                     <label for="alergenos">Alérgenos</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="alergenos[]" value="huevo"> Huevo</label>
-                        <label><input type="checkbox" name="alergenos[]" value="frutosSecos"> Frutos Secos</label>
-                        <label><input type="checkbox" name="alergenos[]" value="NULL"> Ninguna</label>
+                        <label><input type="checkbox" name="alergenos[]" value="huevos">Huevos</label>
+                        <label><input type="checkbox" name="alergenos[]" value="frutos secos">Frutos secos</label>
+                        <label><input type="checkbox" name="alergenos[]" value="NULL">Ninguna</label>
                     </div>
                 </div>
                 <p class="input-alergenos-error input-registro-error no-display">Selecciona una opción</p>
@@ -115,7 +115,7 @@
                 <p class="input-password-error input-registro-error  no-display">La contraseña debe tener por lo menos 12 carácteres</p>          
             </div>
             <div>
-                <input id="password2" type="password" name="password2" placeholder="Confirmar Contraseña" />
+                <input id="password2" type="password" name="password2" placeholder="Confirmar contraseña" />
                 <p class="input-password2-error input-registro-error  no-display">Las contraseñas no coinciden</p>
             </div>
         </div>
@@ -125,8 +125,8 @@
             }
         ?>
         <p class="form-msg hidden"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Error:</strong> Por favor, rellena el formulario correctamente.</p>
-        <input type="submit" name="registrar" class="btn" value="Registrarse"/>
-        <p class="text-md">¿Ya tienes su cuenta? <a href="login.php" class="link">Inicia Sesión</a></p>    
+        <input type="submit" name="registrar" class="btn" value="Registrarse" style="width: 160px;"/>
+        <p class="text-md">¿Ya tienes su cuenta? <a href="login.php" class="link">Iniciar sesión</a></p>    
     </form>
 </div>
     <?php include "../components/footer.html"?> 

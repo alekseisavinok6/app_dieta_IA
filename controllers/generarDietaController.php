@@ -46,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
             break;
         case 4:
             $distribucion_comidas = [
-                'Desayuno' => 0.25,
-                'Snack'    => 0.35,
-                'Comida'   => 0.30,
-                'Cena'     => 0.10
+                'Desayuno' => 0.30,
+                'Snack'    => 0.10,
+                'Comida'   => 0.35,
+                'Cena'     => 0.25
             ];
             break;
         case 5:
@@ -151,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
 
 
     // --- 5. Llamada a la API de Gemini ---
-    $gemini_api_key = 'TU_API_KEY_DE_GEMINI'; // Reemplaza con tu clave de API de Gemini
+    $gemini_api_key = ''; // Reemplaza con tu clave de API de Gemini
     $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $gemini_api_key;
 
     $headers = [
