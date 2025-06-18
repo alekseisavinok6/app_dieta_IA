@@ -151,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
 
 
     // --- 5. Llamada a la API de Gemini ---
-    $gemini_api_key = 'AIzaSyBy10f0PuX7e9Z7aMi1k0eKO8pDn_lK36U'; // Reemplaza con tu clave de API de Gemini
+    $gemini_api_key = ''; // Reemplaza con tu clave de API de Gemini
     $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $gemini_api_key;
 
     $headers = [
