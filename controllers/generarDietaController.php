@@ -2,6 +2,11 @@
 session_start();
 include_once "conexionLocal.php";
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 if (!defined('BASE_URL')) {
     define('BASE_URL', '/');
 }
@@ -151,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
 
 
     // --- 5. Llamada a la API de Gemini ---
-    $gemini_api_key = ''; // Reemplaza con tu clave de API de Gemini
+    $gemini_api_key = $_ENV['GEMINI_API_KEY'];
     $api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $gemini_api_key;
 
     $headers = [
