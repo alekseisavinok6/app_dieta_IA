@@ -81,8 +81,10 @@
                     <div class="checkbox-group">
                         <label><input type="checkbox" name="alergenos[]" value="huevos">Huevos</label>
                         <label><input type="checkbox" name="alergenos[]" value="frutos secos">Frutos secos</label>
-                        <label><input type="checkbox" name="alergenos[]" value="NULL">Ninguna</label>
+                        <label><input type="checkbox" name="alergenos[]" value="">Otras</label>
+                        <label><input type="checkbox" name="alergenos[]" value="null">Ninguna</label>
                     </div>
+                    <input type="text" name="otros_alergenos" placeholder="Otras alergias" />
                 </div>
                 <p class="input-alergenos-error input-registro-error no-display">Selecciona una opción</p>
             </div>
@@ -90,10 +92,12 @@
                 <div class="checkbox-container intolerancias-container flex-c">
                     <label for="intolerancias">Intolerancias</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="intolerancias[]" value="lactosa"> Lactosa</label>
-                        <label><input type="checkbox" name="intolerancias[]" value="gluten"> Gluten</label>
-                        <label><input type="checkbox" name="intolerancias[]" value="NULL"> Ninguna</label>
+                        <label><input type="checkbox" name="intolerancias[]" value="lactosa">Lactosa</label>
+                        <label><input type="checkbox" name="intolerancias[]" value="gluten">Gluten</label>
+                        <label><input type="checkbox" name="intolerancias[]" value="">Otras</label>
+                        <label><input type="checkbox" name="intolerancias[]" value="null">Ninguna</label>
                     </div>
+                    <input type="text" name="otras_intolerancias" placeholder="Otras intolerancias" />
                 </div>
                 <p class="input-intolerancias-error input-registro-error no-display">Selecciona una opción</p>
             </div>
@@ -101,10 +105,12 @@
                 <div class="checkbox-container enfermedades-container flex-c">
                     <label for="enfermedades">Enfermedades</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="enfermedades[]" value="diabetes"> Diabetes</label>
-                        <label><input type="checkbox" name="enfermedades[]" value="hipertension"> Hipertensión</label>
-                        <label><input type="checkbox" name="enfermedades[]" value="NULL"> Ninguna</label>
+                        <label><input type="checkbox" name="enfermedades[]" value="diabetes">Diabetes</label>
+                        <label><input type="checkbox" name="enfermedades[]" value="hipertension">Hipertensión</label>
+                        <label><input type="checkbox" name="enfermedades[]" value="">Otras</label>
+                        <label><input type="checkbox" name="enfermedades[]" value="null">Ninguna</label>
                     </div>
+                    <input type="text" name="otras_enfermedades" placeholder="Otras enfermedades" />
                 </div>
                 <p class="input-enfermedades-error input-registro-error no-display">Selecciona una opción</p>
             </div>

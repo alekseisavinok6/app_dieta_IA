@@ -11,12 +11,31 @@
         $correo = trim($_POST["correo"] ?? "");
         $peso = (int)$_POST["peso"];
         $altura = (int)$_POST["altura"];
+        // ALERGENOS
         $alergenos = $_POST["alergenos"] ?? [];
-        $alergenosBBDD = implode(",", $alergenos);
+        $otros_alergenos = trim($_POST["otros_alergenos"] ?? "");
+        if (!empty($otros_alergenos)) {
+            $alergenos_extra = array_map('trim', explode(',', $otros_alergenos));
+            $alergenos = array_merge($alergenos, $alergenos_extra);
+        }
+        $alergenos = array_filter(array_unique($alergenos));
+        // INTOLERANCIAS
         $intolerancias = $_POST["intolerancias"] ?? [];
-        $intoleranciasBBDD = implode(",", $intolerancias);
+        $otras_intolerancias = trim($_POST["otras_intolerancias"] ?? "");
+        if (!empty($otras_intolerancias)) {
+            $intolerancias_extra = array_map('trim', explode(',', $otras_intolerancias));
+            $intolerancias = array_merge($intolerancias, $intolerancias_extra);
+        }
+        $intolerancias = array_filter(array_unique($intolerancias));
+        // ENFERMEDADES
         $enfermedades = $_POST["enfermedades" ?? []];
-        $enfermedadesBBDD = implode(",", $enfermedades);
+        $otras_enfermedades = trim($_POST["otras_enfermedades"] ?? "");
+        if (!empty($otras_enfermedades)) {
+            $enfermedades_extra = array_map('trim', explode(',', $otras_enfermedades));
+            $enfermedades = array_merge($enfermedades, $enfermedades_extra);
+        }
+        $enfermedades = array_filter(array_unique($enfermedades));
+        // SEXO
         $sexo = $_POST["sexo"] ?? "Hombre";
         $f_nacimiento = $_POST["f_nacimiento"];
         $edad = 0;
@@ -56,14 +75,17 @@
             $errores['altura'] = "La altura no es válida.";
         }
         if (empty($alergenos)) {
-            $errores['alergenos'] = "Los alergenos no son válidos";
-        } 
+            $errores['alergenos'] = "Debes seleccionar al menos un alérgeno o escribirlo.";
+        }
+        $alergenosBBDD = implode(",", $alergenos); 
         if (empty($intolerancias)) {
-            $errores['intolerancias'] = "Las intolerancias no son válidas";
+            $errores['intolerancias'] = "Debes seleccionar al menos una intolerancia o escribirla.";
         }
+        $intoleranciasBBDD = implode(",", $intolerancias);
         if (empty($enfermedades)) {
-            $errores['enfermedades'] = "Las enfermedades no son válidas";
+            $errores['enfermedades'] = "Debes seleccionar al menos una enfermedad o escribirla.";
         }
+        $enfermedadesBBDD = implode(",", $enfermedades);
         if ($sexo !== "Hombre" && $sexo !== "Mujer") {
             $errores['sexo'] = "El sexo no es válido.";
         }
