@@ -19,6 +19,9 @@
             $alergenos = array_merge($alergenos, $alergenos_extra);
         }
         $alergenos = array_filter(array_unique($alergenos));
+        if (in_array("null", $alergenos) && count($alergenos) > 1) {
+            $alergenos = array_diff($alergenos, ["null"]);
+        }
         // INTOLERANCIAS
         $intolerancias = $_POST["intolerancias"] ?? [];
         $otras_intolerancias = trim($_POST["otras_intolerancias"] ?? "");
@@ -27,6 +30,9 @@
             $intolerancias = array_merge($intolerancias, $intolerancias_extra);
         }
         $intolerancias = array_filter(array_unique($intolerancias));
+        if (in_array("null", $intolerancias) && count($intolerancias) > 1) {
+            $intolerancias = array_diff($intolerancias, ["null"]);
+        }
         // ENFERMEDADES
         $enfermedades = $_POST["enfermedades" ?? []];
         $otras_enfermedades = trim($_POST["otras_enfermedades"] ?? "");
@@ -35,6 +41,9 @@
             $enfermedades = array_merge($enfermedades, $enfermedades_extra);
         }
         $enfermedades = array_filter(array_unique($enfermedades));
+        if (in_array("null", $enfermedades) && count($enfermedades) > 1) {
+            $enfermedades = array_diff($enfermedades, ["null"]);
+        }
         // SEXO
         $sexo = $_POST["sexo"] ?? "Hombre";
         $f_nacimiento = $_POST["f_nacimiento"];
