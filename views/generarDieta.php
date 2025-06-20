@@ -115,6 +115,11 @@ unset($_SESSION['error_dieta_app']);
             </div>
             <div class="generar-right">
                 <h3><i>Paso 3: Generación de dietas con IA</i> 🤖</h3>
+                <div style="font-size: larger;">
+                    ⚠️ Patologías: <strong style="color: crimson;"><?= $_SESSION['enfermedades'] ?></strong><br>
+                    😷 Alergias: <i style="color: darkblue;"><?= $_SESSION['alergias'] ?></i><br>
+                    🤢 Intolerancias: <i><?= $_SESSION['intolerancias'] ?></i>
+                </div>
                 <?php if ($dieta_generada): ?>
                     <div class="dieta-generada-box">
                         <h3>Tu dieta personalizada:</h3>

@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'] ?? null;
     $get = $_SESSION['calculo_energetico']['gasto_energetico_total'] ?? null;
     $vct_calculado_inicial = $_SESSION['calculo_energetico']['vct'] ?? null;
+    $enfermedades = $_SESSION['enfermedades'] ?? null; // Enfermedades o condiciones de salud relevantes
 
     // Comprobar si hay datos importantes disponibles
     if (!$imc || !$vct_calculado_inicial || !$sexo || !$edad || !$peso_actual || !$talla_metros || !$nivel_actividad_descriptivo) {
@@ -106,9 +107,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
             break;
     }
 
+
     // --- 4. Compilación de una solicitud detallada para Géminis ---
     $prompt_para_gemini = "Genera un plan de dieta personalizada para una persona que vive en España, con las siguientes características:\n\n";
     $prompt_para_gemini .= "- **Género:** " . ($sexo === 'hombre' ? 'masculino' : 'femenino') . "\n";
+    $prompt_para_gemini .= "- **Enfermedades o condiciones de salud relevantes:** " . ($enfermedades ? $enfermedades : 'Ninguna') . "\n";
     $prompt_para_gemini .= "- **Edad:** " . $edad . " años\n";
     $prompt_para_gemini .= "- **Peso actual:** " . $peso_actual . " kg\n";
     $prompt_para_gemini .= "- **Altura (talla):** " . ($talla_metros * 100) . " cm\n"; // Convirtamos metros a cm para mayor claridad.
@@ -117,20 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $prompt_para_gemini .= "- **Gasto energético total estimado (GET):** " . number_format($get, 2) . " kcal/día\n";
     $prompt_para_gemini .= "- **Objetivo dietético seleccionado por el usuario:** " . $objetivo_usuario_form . "\n";
     $prompt_para_gemini .= "- **Objetivo calórico total de la dieta (VCT):** " . number_format($vct_final_objetivo, 2) . " kcal/día\n\n";
-        // Distribución de calorías al prompt
-    $prompt_para_gemini .= "Distribuye las calorías diarias según esta proporción entre las comidas:\n";
-    foreach ($distribucion_comidas as $nombre_comida => $proporcion) {
-        $kcal = round($vct_final_objetivo * $proporcion);
-        $prompt_para_gemini .= "- $nombre_comida: $kcal kcal (" . ($proporcion * 100) . "%)\n";
-    }
-    $prompt_para_gemini .= "\nImportante: El desayuno debe contener la mayor parte de la energía del día, y la cena debe ser la comida más ligera. No inviertas este orden.\n\n";
-    $prompt_para_gemini .= "Crea una dieta basada en un VCT de " . number_format($vct_final_objetivo, 2) . " kcal/día.\n";
-    $prompt_para_gemini .= "Genera un menú semanal de 7 días con " . $comidas_dia_form . " comidas diarias.
-    La dieta debe estar orientada a la gastronomía y productos típicos de España, siguiendo un patrón de dieta mediterránea. 
-    Incluye comidas que un español suele comer en su día a día. Sé detallado y fácil de seguir. 
-    Incluye una lista de compras y un resumen de macronutrientes diario. 
-    Escribe la dieta como un texto informativo, día por día y comida por comida.\n\n"; // ¡Aquí está la clave para que IA Gemini "considere" la cocina y hábitos alimenticios españoles!
-
     // Añadiendo preferencias dietéticas
     if (!empty($preferencias_dieta_form)) {
         $pref_text = '';
@@ -144,6 +133,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
         if (!empty($pref_text)) {
             $prompt_para_gemini .= "<i>Tipo de dieta preferido:</i> " . $pref_text . "\n";
         }
+    }
+    // Distribución de calorías al prompt
+    $prompt_para_gemini .= "Distribuye las calorías diarias según esta proporción entre las comidas:\n";
+    foreach ($distribucion_comidas as $nombre_comida => $proporcion) {
+        $kcal = round($vct_final_objetivo * $proporcion);
+        $prompt_para_gemini .= "- $nombre_comida: $kcal kcal (" . ($proporcion * 100) . "%)\n";
+    }
+    $prompt_para_gemini .= "\nImportante: El desayuno debe contener la mayor parte de la energía del día, y la cena debe ser la comida más ligera. No inviertas este orden.\n\n";
+    $prompt_para_gemini .= "Crea una dieta basada en un VCT de " . number_format($vct_final_objetivo, 2) . " kcal/día.\n";
+    $prompt_para_gemini .= "Genera un menú semanal de 7 días con " . $comidas_dia_form . " comidas diarias.\n";
+    $prompt_para_gemini .= "Es muy importante que priorices la adaptación de la dieta a las enfermedades o condiciones del paciente (" . ($enfermedades ?: "ninguna") . ") ";
+    $prompt_para_gemini .= "Después de tener en cuenta las enfermedades, respeta el tipo de dieta preferido: " . (!empty($pref_text) ? $pref_text : "ninguna preferencia específica") . ".\n";    
+    $prompt_para_gemini .= "La dieta debe estar orientada a la gastronomía y productos típicos de España, siguiendo un patrón de dieta mediterránea. 
+    Incluye comidas que un español suele comer en su día a día. Sé detallado y fácil de seguir. 
+    Incluye una lista de compras y un resumen de macronutrientes diario. 
+    Escribe la dieta como un texto informativo, día por día y comida por comida.\n\n"; // ¡Aquí está la clave para que IA Gemini "considere" la cocina y hábitos alimenticios españoles!
+
+    
+    // Agregar información sobre alergias e intolerancias
+    $alergias = $_SESSION['alergias'] ?? null;
+    $intolerancias = $_SESSION['intolerancias'] ?? null;
+    if ($alergias) {
+        $prompt_para_gemini .= "Evita estos alérgenos: " . $alergias . ".\n";
+    }
+    if ($intolerancias) {
+        $prompt_para_gemini .= "Evita estos ingredientes por intolerancia: " . $intolerancias . ".\n";
     }
 
     // Agregar comentarios adicionales

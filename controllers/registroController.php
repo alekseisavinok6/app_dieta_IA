@@ -86,15 +86,15 @@
         if (empty($alergenos)) {
             $errores['alergenos'] = "Debes seleccionar al menos un alérgeno o escribirlo.";
         }
-        $alergenosBBDD = implode(",", $alergenos); 
+        $alergenosBBDD = implode(", ", $alergenos); 
         if (empty($intolerancias)) {
             $errores['intolerancias'] = "Debes seleccionar al menos una intolerancia o escribirla.";
         }
-        $intoleranciasBBDD = implode(",", $intolerancias);
+        $intoleranciasBBDD = implode(", ", $intolerancias);
         if (empty($enfermedades)) {
             $errores['enfermedades'] = "Debes seleccionar al menos una enfermedad o escribirla.";
         }
-        $enfermedadesBBDD = implode(",", $enfermedades);
+        $enfermedadesBBDD = implode(", ", $enfermedades);
         if ($sexo !== "Hombre" && $sexo !== "Mujer") {
             $errores['sexo'] = "El sexo no es válido.";
         }
@@ -127,11 +127,11 @@
             $stmt->bind_param("ssssisiisss", $nombre, $apellido, $correo, $password, $edad, $sexo, $altura, $peso, $enfermedadesBBDD, $alergenosBBDD, $intoleranciasBBDD);
             $resultado = $stmt->execute();
             if ($resultado) {
-                $consultaUsuario = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, alergias, intolerancias FROM clientes WHERE correo = ?");
+                $consultaUsuario = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, enfermedades, alergias, intolerancias FROM clientes WHERE correo = ?");
                 $consultaUsuario->bind_param("s", $correo);
                 $consultaUsuario->execute();
                 $consultaUsuario->store_result();
-                $consultaUsuario->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $alergias, $intolerancias);
+                $consultaUsuario->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $enfermedades, $alergias, $intolerancias);
                 $consultaUsuario->fetch();
 
                 session_start();
@@ -141,6 +141,7 @@
                 $_SESSION['altura'] = $altura;
                 $_SESSION['peso'] = $peso;
                 $_SESSION['peso_deseado'] = $pesoDeseado;
+                $_SESSION['enfermedades'] = $enfermedadesBBDD;
                 $_SESSION['alergias'] = $alergenosBBDD;
                 $_SESSION['intolerancias'] = $intoleranciasBBDD;
                 

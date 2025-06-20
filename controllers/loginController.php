@@ -12,7 +12,7 @@
         $errores = [];
 
         // VERIFICAR QUE EL CORREO EXISTE 
-        $stmt = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, alergias, intolerancias FROM clientes WHERE correo = ?");
+        $stmt = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, enfermedades, alergias, intolerancias FROM clientes WHERE correo = ?");
         $stmt->bind_param("s", $correo);
         $stmt->execute();
         $stmt->store_result();
@@ -35,7 +35,7 @@
                 if(!password_verify($password, $hashGuardado)) {
                     $errores['inicio'] = "Correo o contraseña incorrecto.";
                 } else {
-                    $stmt->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $alergias, $intolerancias);
+                    $stmt->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $enfermedades, $alergias, $intolerancias);
                     $stmt->fetch();
                 }
             }
@@ -48,6 +48,7 @@
             $_SESSION['altura'] = $altura;
             $_SESSION['peso'] = $peso;
             $_SESSION['peso_deseado'] = $pesoDeseado;
+            $_SESSION['enfermedades'] = $enfermedades;
             $_SESSION['alergias'] = $alergias;
             $_SESSION['intolerancias'] = $intolerancias;
             $stmt->close();
