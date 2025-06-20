@@ -69,10 +69,10 @@
 
         //VALIDACIONES
         if (empty($nombre) || !preg_match("/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s']{2,40}$/", $nombre)) {
-            $errores['nombre'] = "El nombre o apellido no es válido.";
+            $errores['nombre'] = "El nombre no es válido.";
         }
         if( empty($apellido) || !preg_match("/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s']{2,40}$/", $apellido)) {
-            $errores['apellido'] = "El nombre o apellido no es válido.";
+            $errores['apellido'] = "El apellido no es válido.";
         }
         if (empty($correo) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
             $errores['correo'] = "El correo no es válido.";

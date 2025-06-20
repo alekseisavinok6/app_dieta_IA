@@ -44,11 +44,12 @@
                 <p class="form-msg hidden"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Error:</strong> Por favor, rellena el formulario correctamente.</p>
                 <input type="submit" class="btn" value="Iniciar sesión" style="width: 160px;"/>
             </form>
+            <br>
             <?php
             include("../controllers/loginController.php");
             ?>
-            <p class="text-md">¿No tienes su cuenta? <a href="registro.php" class="link">Regístrate</a></p>
-            <p class="text-md"><a href="../views/login.php" class="link disable">¿Has olvidado la contraseña?</a></p>    
+            <p class="text-md">¿No tienes tu cuenta? <a href="registro.php" class="link">Regístrate</a></p>
+            <!-- <p class="text-md"><a href="../views/login.php" class="link disable">¿Has olvidado la contraseña?</a></p>     -->
         </div>
     </div>
     <?php include "../components/footer.html"?>
