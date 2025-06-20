@@ -124,9 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
         $prompt_para_gemini .= "- $nombre_comida: $kcal kcal (" . ($proporcion * 100) . "%)\n";
     }
     $prompt_para_gemini .= "\nImportante: El desayuno debe contener la mayor parte de la energía del día, y la cena debe ser la comida más ligera. No inviertas este orden.\n\n";
-    $prompt_para_gemini .= "- **Creame la dieta a partir del valor VCT:" . $vct_final_objetivo . "\n";
-    $prompt_para_gemini .= "Por favor, crea un plan de comidas de 7 días (una semana) que incluya " . $comidas_dia_form . " comidas al día.
-    Calcúlame el menú en base a " . $vct_final_objetivo . " la dieta a partir del valor VCT.
+    $prompt_para_gemini .= "Crea una dieta basada en un VCT de " . number_format($vct_final_objetivo, 2) . " kcal/día.\n";
+    $prompt_para_gemini .= "Genera un menú semanal de 7 días con " . $comidas_dia_form . " comidas diarias.
     La dieta debe estar orientada a la gastronomía y productos típicos de España, siguiendo un patrón de dieta mediterránea. 
     Incluye comidas que un español suele comer en su día a día. Sé detallado y fácil de seguir. 
     Incluye una lista de compras y un resumen de macronutrientes diario. 
