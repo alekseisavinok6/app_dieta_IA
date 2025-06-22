@@ -106,7 +106,7 @@
                     <label for="enfermedades">Enfermedades</label>
                     <div class="checkbox-group">
                         <label><input type="checkbox" name="enfermedades[]" value="diabetes">Diabetes</label>
-                        <label><input type="checkbox" name="enfermedades[]" value="hipertension">Hipertensión</label>
+                        <label><input type="checkbox" name="enfermedades[]" value="hipertensión">Hipertensión</label>
                         <label><input type="checkbox" name="enfermedades[]" value="">Otras</label>
                         <label><input type="checkbox" name="enfermedades[]" value="null">Ninguna</label>
                     </div>

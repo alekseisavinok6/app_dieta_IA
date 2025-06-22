@@ -70,6 +70,7 @@ session_start();
         }
         .btn-primary:hover {
             background-color: #0056b3;
+            color: white;
         }
         .btn-secondary {
             background-color: #6c757d;
@@ -77,6 +78,7 @@ session_start();
         }
         .btn-secondary:hover {
             background-color: #5a6268;
+            color: white;
         }
         .btn-success {
             background-color: #28a745;
@@ -84,6 +86,7 @@ session_start();
         }
         .btn-success:hover {
             background-color: #218838;
+            color: white;
         }
     </style>
 </head>
