@@ -9,8 +9,8 @@
         $nombre = trim($_POST["nombre"] ?? "");
         $apellido = trim($_POST["apellido"] ?? "");
         $correo = trim($_POST["correo"] ?? "");
-        $peso = (int)$_POST["peso"];
-        $altura = (int)$_POST["altura"];
+        $peso = (float)$_POST["peso"];
+        $talla = (float)$_POST["talla"];
         // ALERGENOS
         $alergenos = $_POST["alergenos"] ?? [];
         $otros_alergenos = trim($_POST["otros_alergenos"] ?? "");
@@ -34,7 +34,7 @@
             $intolerancias = array_diff($intolerancias, ["null"]);
         }
         // ENFERMEDADES
-        $enfermedades = $_POST["enfermedades" ?? []];
+        $enfermedades = $_POST["enfermedades"] ?? [];
         $otras_enfermedades = trim($_POST["otras_enfermedades"] ?? "");
         if (!empty($otras_enfermedades)) {
             $enfermedades_extra = array_map('trim', explode(',', $otras_enfermedades));
@@ -48,15 +48,15 @@
         $sexo = $_POST["sexo"] ?? "Hombre";
         $f_nacimiento = $_POST["f_nacimiento"];
         $edad = 0;
-        $password = trim($_POST["password"]);
-        $password2 = trim($_POST["password2"]);
+        $contrasena = trim($_POST["contrasena"]);
+        $contrasena2 = trim($_POST["contrasena2"]);
 
         $errores = [];
         
         // VERIFICAR QUE EL CORREO NO ESTÉ REGISTRADO
         // SI ESTÁ REGISTRADO, NO MANDA NADA A LA BBDD PERO TE REDIRIGE A UNA PAGINA DE ERROR 
         // (INVESTIGAR FETCH PARA PODER MOSTRAR MENSAJES DE ERROR EN EL FORMULARIO)
-        $consultaCorreo = $conexion->prepare("SELECT id_cliente FROM clientes WHERE correo = ?");
+        $consultaCorreo = $conexion->prepare("SELECT id_cliente FROM cliente WHERE correo = ?");
         $consultaCorreo->bind_param("s",$correo);
         $consultaCorreo->execute();
         $consultaCorreo->store_result();
@@ -80,8 +80,10 @@
         if (empty($peso) || $peso < 20 || $peso > 300){
             $errores['peso'] = "El peso no es válido.";
         }
-        if (empty($altura) || $altura < 50 || $altura > 250){
-            $errores['altura'] = "La altura no es válida.";
+        if (empty($talla) || $talla < 50 || $talla > 250){
+            $errores['talla'] = "La talla no es válida.";
+        } else {
+            $talla = $talla / 100; // Convertir a metros
         }
         if (empty($alergenos)) {
             $errores['alergenos'] = "Debes seleccionar al menos un alérgeno o escribirlo.";
@@ -112,35 +114,34 @@
         }
         // VALIDACION Y ENCRIPTACIÓN DE CONTRASEÑA
         // AGREGAR MÁS SEGURIDAD (MAYUSCULAS, NÚMEROS, CARACTERES ESPECIALES)
-        if (strlen($password) < 12) {
-            $errores['password'] = "La contraseña debe tener al menos 12 caracteres.";
+        if (strlen($contrasena) < 12) {
+            $errores['contrasena'] = "La contraseña debe tener al menos 12 caracteres.";
         }
-        if ($password !== $password2) {
-            $errores['password2'] = "Las contraseñas no coinciden.";
+        if ($contrasena !== $contrasena2) {
+            $errores['contrasena2'] = "Las contraseñas no coinciden.";
         } 
-        if (!isset($errores['password']) && !isset($errores['password2'])) {
-            $password = password_hash($password, PASSWORD_DEFAULT);
+        if (!isset($errores['contrasena']) && !isset($errores['contrasena2'])) {
+            $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
         }
 
         if(empty($errores)) {
-            $stmt = $conexion->prepare("INSERT INTO clientes(nombre, apellido, correo, password, edad, sexo, altura, peso, enfermedades, alergias, intolerancias) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssisiisss", $nombre, $apellido, $correo, $password, $edad, $sexo, $altura, $peso, $enfermedadesBBDD, $alergenosBBDD, $intoleranciasBBDD);
+            $stmt = $conexion->prepare("INSERT INTO cliente (nombre, apellido, correo, contrasena, edad, sexo, talla, peso, enfermedades, alergias, intolerancias) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssisddsss", $nombre, $apellido, $correo, $contrasena, $edad, $sexo, $talla, $peso, $enfermedadesBBDD, $alergenosBBDD, $intoleranciasBBDD);
             $resultado = $stmt->execute();
             if ($resultado) {
-                $consultaUsuario = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, enfermedades, alergias, intolerancias FROM clientes WHERE correo = ?");
+                $consultaUsuario = $conexion->prepare("SELECT id_cliente, nombre, apellido, talla, peso, enfermedades, alergias, intolerancias FROM cliente WHERE correo = ?");
                 $consultaUsuario->bind_param("s", $correo);
                 $consultaUsuario->execute();
                 $consultaUsuario->store_result();
-                $consultaUsuario->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $enfermedades, $alergias, $intolerancias);
+                $consultaUsuario->bind_result($id_cliente, $nombre, $apellido, $talla, $peso, $enfermedades, $alergias, $intolerancias);
                 $consultaUsuario->fetch();
 
                 session_start();
                 $_SESSION['id_cliente'] = $id_cliente;
                 $_SESSION['nombre'] = $nombre;
                 $_SESSION['apellido'] = $apellido;
-                $_SESSION['altura'] = $altura;
-                $_SESSION['peso'] = $peso;
-                $_SESSION['peso_deseado'] = $pesoDeseado;
+                $_SESSION['talla'] = $talla;
+                $_SESSION['peso'] = $peso;                
                 $_SESSION['enfermedades'] = $enfermedadesBBDD;
                 $_SESSION['alergias'] = $alergenosBBDD;
                 $_SESSION['intolerancias'] = $intoleranciasBBDD;

@@ -51,13 +51,13 @@
         <div class="client-data" style="display: flex; gap: 1rem;">
             <div class="client-data-input form-peso" style="flex: 1;">
                 <label for="peso">Peso (kg)</label>
-                <input type="number" name="peso" id="peso" placeholder="Peso" min="20" max="300"/>
+                <input type="number" step="0.01" name="peso" id="peso" placeholder="(ej. 75)" min="20" max="300"/>
                 <p class="input-peso-error input-registro-error no-display">El peso introducido no es válido</p>
             </div>
-            <div class="client-data-input form-altura" style="flex: 1;">
-                <label for="altura">Altura (cm)</label>
-                <input type="number" name="altura" id="altura" placeholder="Altura" min="50" max="250"/>
-                <p class="input-altura-error input-registro-error no-display">La altura introducida no es válida</p>
+            <div class="client-data-input form-talla" style="flex: 1;">
+                <label for="talla">Talla (cm)</label>
+                <input type="number" step="0.01" name="talla" id="talla" placeholder="(ej. 175)" min="50" max="250"/>
+                <p class="input-talla-error input-registro-error no-display">La talla introducida no es válida</p>
             </div>
             <div class="client-data-input form-nacimiento" style="flex: 1;">
                 <label for="f_nacimiento">Fecha nacimiento</label>
@@ -115,14 +115,14 @@
                 <p class="input-enfermedades-error input-registro-error no-display">Selecciona una opción</p>
             </div>
         </div>
-        <div class="form-password" style="display: flex; gap: 1rem;">
+        <div class="form-contrasena" style="display: flex; gap: 1rem;">
             <div style="flex: 1;">
-                <input id="password" type="password" name="password" placeholder="Contraseña" />
-                <p class="input-password-error input-registro-error no-display">La contraseña debe tener por lo menos 12 carácteres</p>          
+                <input id="contrasena" type="password" name="contrasena" placeholder="Contraseña" />
+                <p class="input-contrasena-error input-registro-error no-display">La contraseña debe tener por lo menos 12 carácteres</p>          
             </div>
             <div style="flex: 1;">
-                <input id="password2" type="password" name="password2" placeholder="Confirmar contraseña" />
-                <p class="input-password2-error input-registro-error no-display">Las contraseñas no coinciden</p>
+                <input id="contrasena2" type="password" name="contrasena2" placeholder="Confirmar contraseña" />
+                <p class="input-contrasena2-error input-registro-error no-display">Las contraseñas no coinciden</p>
             </div>
         </div>
         <?php 
@@ -136,7 +136,7 @@
     </form>
 </div>
     <?php include "../components/footer.html"?> 
-    <script src="../js/registroScript.js"></script>
+    <!-- <script src="../js/registroScript.js"></script> -->
     <script
       src="https://kit.fontawesome.com/6209fab7df.js"
       crossorigin="anonymous"
