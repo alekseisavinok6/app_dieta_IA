@@ -91,7 +91,7 @@ unset($_SESSION['error_dieta_app']);
             opacity: 1;
         }
 
-            /* Esto ajusta el tamaño del ícono ℹ️ y el texto del tooltip cuando está dentro de encabezados */
+        /* Esto ajusta el tamaño del ícono ℹ️ y el texto del tooltip cuando está dentro de encabezados */
         .small-tooltip {
         font-size: 0.65em; /* Hace que ℹ️ no herede el tamaño grande de <h3> */
         }
@@ -100,9 +100,44 @@ unset($_SESSION['error_dieta_app']);
         font-size: 0.9em; /* Igual que en otras partes como <label> */
         width: 240px;
         }
+
+    /* Estilos para el spinner de carga */
+    #loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .spinner {
+        border: 8px solid #f3f3f3; /* Light grey */
+        border-top: 8px solid #328e6e; /* Green */
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
     </style>
 </head>
 <body>
+<!-- Spinner de carga -->
+<div id="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <p style="color: white; font-size: 1.2em;">Generando tu dieta personalizada...</p>
+</div>
     <div class="container">
         <?php include "../components/navbar.php"; ?>
 
@@ -115,6 +150,11 @@ unset($_SESSION['error_dieta_app']);
             </div>
             <div class="generar-right">
                 <h3><i>Paso 3: Generación de dietas con IA</i> 🤖</h3>
+                <div style="font-size: larger;">
+                    ⚠️ Patologías: <strong style="color: crimson;"><?= $_SESSION['enfermedades'] ?></strong><br>
+                    😷 Alergias: <i style="color: darkblue;"><?= $_SESSION['alergias'] ?></i><br>
+                    🤢 Intolerancias: <i><?= $_SESSION['intolerancias'] ?></i>
+                </div>
                 <?php if ($dieta_generada): ?>
                     <div class="dieta-generada-box">
                         <h3>Tu dieta personalizada:</h3>
@@ -201,4 +241,9 @@ unset($_SESSION['error_dieta_app']);
         </div>
     </div>
 </body>
+<script>
+document.getElementById('generar-form').addEventListener('submit', function() {
+    document.getElementById('loading-overlay').style.display = 'flex';
+});
+</script>
 </html>

@@ -38,7 +38,7 @@
               ✔️¡Come mejor, vive mejor!
             </p><br>
             <?php if(isset($_SESSION['id_cliente'])): ?>
-              <div style="font-size: larger;">Hola, <strong><?= $_SESSION['nombre'] ?> <?= $_SESSION['apellido'] ?></strong>. Tu sesión está activa.</div><br>
+              <div style="font-size: larger;">¡Hola, <strong><?= $_SESSION['nombre'] ?> <?= $_SESSION['apellido'] ?></strong>! Tu sesión está activa.</div><br>
               <div class="two-buttons">
               <a href="views/estudioAntropometrico.php"><button class="btn">Pulsa para iniciar</button></a>
               </div>

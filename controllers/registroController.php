@@ -11,12 +11,40 @@
         $correo = trim($_POST["correo"] ?? "");
         $peso = (int)$_POST["peso"];
         $altura = (int)$_POST["altura"];
+        // ALERGENOS
         $alergenos = $_POST["alergenos"] ?? [];
-        $alergenosBBDD = implode(",", $alergenos);
+        $otros_alergenos = trim($_POST["otros_alergenos"] ?? "");
+        if (!empty($otros_alergenos)) {
+            $alergenos_extra = array_map('trim', explode(',', $otros_alergenos));
+            $alergenos = array_merge($alergenos, $alergenos_extra);
+        }
+        $alergenos = array_filter(array_unique($alergenos));
+        if (in_array("null", $alergenos) && count($alergenos) > 1) {
+            $alergenos = array_diff($alergenos, ["null"]);
+        }
+        // INTOLERANCIAS
         $intolerancias = $_POST["intolerancias"] ?? [];
-        $intoleranciasBBDD = implode(",", $intolerancias);
+        $otras_intolerancias = trim($_POST["otras_intolerancias"] ?? "");
+        if (!empty($otras_intolerancias)) {
+            $intolerancias_extra = array_map('trim', explode(',', $otras_intolerancias));
+            $intolerancias = array_merge($intolerancias, $intolerancias_extra);
+        }
+        $intolerancias = array_filter(array_unique($intolerancias));
+        if (in_array("null", $intolerancias) && count($intolerancias) > 1) {
+            $intolerancias = array_diff($intolerancias, ["null"]);
+        }
+        // ENFERMEDADES
         $enfermedades = $_POST["enfermedades" ?? []];
-        $enfermedadesBBDD = implode(",", $enfermedades);
+        $otras_enfermedades = trim($_POST["otras_enfermedades"] ?? "");
+        if (!empty($otras_enfermedades)) {
+            $enfermedades_extra = array_map('trim', explode(',', $otras_enfermedades));
+            $enfermedades = array_merge($enfermedades, $enfermedades_extra);
+        }
+        $enfermedades = array_filter(array_unique($enfermedades));
+        if (in_array("null", $enfermedades) && count($enfermedades) > 1) {
+            $enfermedades = array_diff($enfermedades, ["null"]);
+        }
+        // SEXO
         $sexo = $_POST["sexo"] ?? "Hombre";
         $f_nacimiento = $_POST["f_nacimiento"];
         $edad = 0;
@@ -41,10 +69,10 @@
 
         //VALIDACIONES
         if (empty($nombre) || !preg_match("/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s']{2,40}$/", $nombre)) {
-            $errores['nombre'] = "El nombre o apellido no es válido.";
+            $errores['nombre'] = "El nombre no es válido.";
         }
         if( empty($apellido) || !preg_match("/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s']{2,40}$/", $apellido)) {
-            $errores['apellido'] = "El nombre o apellido no es válido.";
+            $errores['apellido'] = "El apellido no es válido.";
         }
         if (empty($correo) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
             $errores['correo'] = "El correo no es válido.";
@@ -56,14 +84,17 @@
             $errores['altura'] = "La altura no es válida.";
         }
         if (empty($alergenos)) {
-            $errores['alergenos'] = "Los alergenos no son válidos";
-        } 
+            $errores['alergenos'] = "Debes seleccionar al menos un alérgeno o escribirlo.";
+        }
+        $alergenosBBDD = implode(", ", $alergenos); 
         if (empty($intolerancias)) {
-            $errores['intolerancias'] = "Las intolerancias no son válidas";
+            $errores['intolerancias'] = "Debes seleccionar al menos una intolerancia o escribirla.";
         }
+        $intoleranciasBBDD = implode(", ", $intolerancias);
         if (empty($enfermedades)) {
-            $errores['enfermedades'] = "Las enfermedades no son válidas";
+            $errores['enfermedades'] = "Debes seleccionar al menos una enfermedad o escribirla.";
         }
+        $enfermedadesBBDD = implode(", ", $enfermedades);
         if ($sexo !== "Hombre" && $sexo !== "Mujer") {
             $errores['sexo'] = "El sexo no es válido.";
         }
@@ -96,11 +127,11 @@
             $stmt->bind_param("ssssisiisss", $nombre, $apellido, $correo, $password, $edad, $sexo, $altura, $peso, $enfermedadesBBDD, $alergenosBBDD, $intoleranciasBBDD);
             $resultado = $stmt->execute();
             if ($resultado) {
-                $consultaUsuario = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, alergias, intolerancias FROM clientes WHERE correo = ?");
+                $consultaUsuario = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, enfermedades, alergias, intolerancias FROM clientes WHERE correo = ?");
                 $consultaUsuario->bind_param("s", $correo);
                 $consultaUsuario->execute();
                 $consultaUsuario->store_result();
-                $consultaUsuario->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $alergias, $intolerancias);
+                $consultaUsuario->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $enfermedades, $alergias, $intolerancias);
                 $consultaUsuario->fetch();
 
                 session_start();
@@ -110,6 +141,7 @@
                 $_SESSION['altura'] = $altura;
                 $_SESSION['peso'] = $peso;
                 $_SESSION['peso_deseado'] = $pesoDeseado;
+                $_SESSION['enfermedades'] = $enfermedadesBBDD;
                 $_SESSION['alergias'] = $alergenosBBDD;
                 $_SESSION['intolerancias'] = $intoleranciasBBDD;
                 
