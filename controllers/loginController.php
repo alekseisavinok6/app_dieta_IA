@@ -7,12 +7,12 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $correo = trim($_POST['correo'] ?? "");
-        $password = trim($_POST['password'] ?? "");
+        $contrasena = trim($_POST['contrasena'] ?? "");
 
         $errores = [];
 
         // VERIFICAR QUE EL CORREO EXISTE 
-        $stmt = $conexion->prepare("SELECT id_cliente, nombre, apellido, altura, peso, peso_deseado, enfermedades, alergias, intolerancias FROM clientes WHERE correo = ?");
+        $stmt = $conexion->prepare("SELECT id_cliente, nombre, apellido, talla, peso, enfermedades, alergias, intolerancias FROM cliente WHERE correo = ?");
         $stmt->bind_param("s", $correo);
         $stmt->execute();
         $stmt->store_result();
@@ -21,21 +21,21 @@
         if($stmt->num_rows < 1) {
             $errores['inicio'] = "Correo o contraseña incorrecto.";
         } else {
-            $consultaPassword = $conexion->prepare("SELECT password FROM clientes WHERE correo = ?");
-            $consultaPassword->bind_param("s",$correo);
-            $consultaPassword->execute();
-            $consultaPassword->store_result();
-            $consultaPassword->bind_result($hashGuardado);
-            $consultaPassword->fetch();
+            $consultaContrasena = $conexion->prepare("SELECT contrasena FROM cliente WHERE correo = ?");
+            $consultaContrasena->bind_param("s",$correo);
+            $consultaContrasena->execute();
+            $consultaContrasena->store_result();
+            $consultaContrasena->bind_result($hashGuardado);
+            $consultaContrasena->fetch();
 
-            if (strlen($password) < 12) {
-                $errores['password'] = "La contraseña debe tener al menos 12 caracteres.";
+            if (strlen($contrasena) < 12) {
+                $errores['contrasena'] = "La contraseña debe tener al menos 12 caracteres.";
                 echo "<p>La contraseña introducido no existe.</p>";
             } else {
-                if(!password_verify($password, $hashGuardado)) {
+                if(!password_verify($contrasena, $hashGuardado)) {
                     $errores['inicio'] = "Correo o contraseña incorrecto.";
                 } else {
-                    $stmt->bind_result($id_cliente, $nombre, $apellido, $altura, $peso, $pesoDeseado, $enfermedades, $alergias, $intolerancias);
+                    $stmt->bind_result($id_cliente, $nombre, $apellido, $talla, $peso, $enfermedades, $alergias, $intolerancias);
                     $stmt->fetch();
                 }
             }
@@ -45,9 +45,8 @@
             $_SESSION['id_cliente'] = $id_cliente;
             $_SESSION['nombre'] = $nombre;
             $_SESSION['apellido'] = $apellido;
-            $_SESSION['altura'] = $altura;
+            $_SESSION['talla'] = $talla;
             $_SESSION['peso'] = $peso;
-            $_SESSION['peso_deseado'] = $pesoDeseado;
             $_SESSION['enfermedades'] = $enfermedades;
             $_SESSION['alergias'] = $alergias;
             $_SESSION['intolerancias'] = $intolerancias;

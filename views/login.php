@@ -29,12 +29,12 @@
             <img src="../imgs/logo-main-2.png" alt="DietaApp Logo" style="height: 60px;"></a>
             <h3>¡Bienvenido(a)!</h3>
             <p class="text-lg">Inicia sesión para acceder a tus dietas personalizadas</p>
-            <form id="login-form" class="login-form flex-c" action="../controllers/loginController.php" method="POST"> <!-- Cambia la acción al controlador correspondiente -->
+            <form id="login-form" class="login-form flex-c" action="../controllers/loginController.php" method="POST">
                 <div>
-                    <input type="email" name="correo" placeholder="Correo"  />
+                    <input type="email" name="correo" placeholder="usuario@gmail.com"  />
                     <p class="input-correo-error input-error no-display">El correo no es válido</p>
-                    <input type="password" name="password" placeholder="Contraseña"  />
-                    <p class="input-password-error input-error no-display">La contraseña debe tener por lo menos 12 carácteres</p>
+                    <input type="password" name="contrasena" placeholder="Introduce tu contraseña"  />
+                    <p class="input-contrasena-error input-error no-display">La contraseña debe tener por lo menos 12 carácteres</p>
                 </div>
                 <?php 
                     if (isset($_GET['error']) && $_GET['error'] === 'credenciales') {
@@ -53,7 +53,7 @@
         </div>
     </div>
     <?php include "../components/footer.html"?>
-    <script src="../js/loginScript.js"></script>
+    <!-- <script src="../js/loginScript.js"></script> -->
     <script src="https://kit.fontawesome.com/6209fab7df.js "crossorigin="anonymous"></script>
 </body>
 </html>
