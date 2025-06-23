@@ -30,7 +30,7 @@
     <div class="registro-container box-s flex-c">
     <a href="<?= BASE_URL ?>index.php" class="logo">
     <img src="<?= BASE_URL ?>imgs/logo-main-2.png" alt="DietaApp Logo" style="height: 60px;"></a>
-    <p class="text-lg">Crea tu cuenta para empezar a crear dietas 🍽️</p>
+    <p class="text-lg">Crea tu cuenta para empezar a crear dietas 🍽️</p><br>
     <form id="registro-form" class="registro-form flex-c" action="../controllers/registroController.php" method="POST">
         <div>
             <div class="form-name">
@@ -42,29 +42,29 @@
                     <input type="text" name="apellido" placeholder="Apellido" />
                     <p class="input-apellido-error input-registro-error no-display">El apellido no es válido</p>
                 </div>
+                <div>
+                    <input type="email" name="correo" placeholder="Correo"/>
+                    <p class="input-correo-error input-registro-error no-display">El correo no es válido</p>
+                </div>
             </div>
         </div>
-        <div>
-            <input type="email" name="correo" placeholder="Correo"/>
-            <p class="input-correo-error input-registro-error no-display">El correo no es válido</p>
-        </div>
-        <div class="client-data">
-            <div class="client-data-input form-peso">
+        <div class="client-data" style="display: flex; gap: 1rem;">
+            <div class="client-data-input form-peso" style="flex: 1;">
                 <label for="peso">Peso (kg)</label>
                 <input type="number" name="peso" id="peso" placeholder="Peso" min="20" max="300"/>
                 <p class="input-peso-error input-registro-error no-display">El peso introducido no es válido</p>
             </div>
-            <div class="client-data-input form-altura">
+            <div class="client-data-input form-altura" style="flex: 1;">
                 <label for="altura">Altura (cm)</label>
                 <input type="number" name="altura" id="altura" placeholder="Altura" min="50" max="250"/>
                 <p class="input-altura-error input-registro-error no-display">La altura introducida no es válida</p>
             </div>
-            <div class="client-data-input form-nacimiento">
+            <div class="client-data-input form-nacimiento" style="flex: 1;">
                 <label for="f_nacimiento">Fecha nacimiento</label>
                 <input type="date" name="f_nacimiento" id="f_nacimiento" />
                 <p class="input-fNacimiento-error input-registro-error no-display">La fecha introducida no es válida</p>
             </div>
-            <div class="client-data-input form-sexo">
+            <div class="client-data-input form-sexo" style="flex: 1;">
                 <label for="Sexo">Sexo biológico</label>
                 <select name="sexo" id="sexo">
                     <option value="Hombre" selected>Hombre</option>
@@ -73,7 +73,7 @@
                 <p class="input-sexo-error input-registro-error no-display">El sexo no es válido</p>
             </div>
         </div>
-        <p class="input-registro-error">Podrás agregar o eliminar más alergias en página de perfil.</p>
+        <!-- <p class="input-registro-error">Podrás agregar o eliminar más alergias en página de perfil.</p> -->
         <div class="client-data-checkbox flex-c">
             <div>
                 <div class="checkbox-container alergenos-container flex-c">
@@ -115,14 +115,14 @@
                 <p class="input-enfermedades-error input-registro-error no-display">Selecciona una opción</p>
             </div>
         </div>
-        <div class="form-password">
-            <div>
+        <div class="form-password" style="display: flex; gap: 1rem;">
+            <div style="flex: 1;">
                 <input id="password" type="password" name="password" placeholder="Contraseña" />
-                <p class="input-password-error input-registro-error  no-display">La contraseña debe tener por lo menos 12 carácteres</p>          
+                <p class="input-password-error input-registro-error no-display">La contraseña debe tener por lo menos 12 carácteres</p>          
             </div>
-            <div>
+            <div style="flex: 1;">
                 <input id="password2" type="password" name="password2" placeholder="Confirmar contraseña" />
-                <p class="input-password2-error input-registro-error  no-display">Las contraseñas no coinciden</p>
+                <p class="input-password2-error input-registro-error no-display">Las contraseñas no coinciden</p>
             </div>
         </div>
         <?php 
