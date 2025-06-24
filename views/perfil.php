@@ -75,17 +75,23 @@
               <h3>Alergias: <i><?= $alergias ?></i></h3>
               <h3>Intolerancias: <i><?= $intolerancias ?></i></h3> -->
 
-              <h3>Id: <i><?= $_SESSION['id_cliente']; ?></i></h3>
-              <h3>Nombre: <i><?= $_SESSION['nombre']; ?></i></h3>
-              <h3>Apellido: <i><?= $_SESSION['apellido']; ?></i></h3>
-              <h3>Correo: <i><?= $_SESSION['correo']; ?></i></h3>
-              <h3>Edad: <i><?= $_SESSION['edad']; ?></i></h3>
-              <h3>Sexo: <i><?= $_SESSION['sexo']; ?></i></h3>
-              <h3>Talla (m): <i><?= $_SESSION['talla']; ?></i></h3>
-              <h3>Peso (kg): <i><?= $_SESSION['peso']; ?></i></h3>
-              <h3>Enfermedades: <i><?= $_SESSION['enfermedades']; ?></i></h3>
-              <h3>Alergias: <i><?= $_SESSION['alergias']; ?></i></h3>
-              <h3>Intolerancias: <i><?= $_SESSION['intolerancias']; ?></i></h3>
+              <h3 style="font-size: 22px;">Id: <i><?= $_SESSION['id_cliente']; ?></i></h3>
+              <h3 style="font-size: 22px;">Apellido: <i><?= $_SESSION['apellido']; ?></i></h3>
+              <h3 style="font-size: 22px;">Nombre: <i><?= $_SESSION['nombre']; ?></i></h3>
+              <h3 style="font-size: 22px;">Correo: <i><?= $_SESSION['correo']; ?></i></h3>
+              <h3 style="font-size: 22px;">Edad: <i><?= $_SESSION['edad']; ?></i></h3>
+              <h3 style="font-size: 22px;">Sexo: <i><?= $_SESSION['sexo']; ?></i></h3>
+              <h3 style="font-size: 22px;">Talla (m): <i><?= $_SESSION['talla']; ?></i></h3>
+              <h3 style="font-size: 22px;">Peso (kg): <i><?= $_SESSION['peso']; ?></i></h3>
+              <h3 style="font-size: 22px;">Enfermedades: <i><?= $_SESSION['enfermedades']; ?></i></h3>
+              <h3 style="font-size: 22px;">Alergias: <i><?= $_SESSION['alergias']; ?></i></h3>
+              <h3 style="font-size: 22px;">Intolerancias: <i><?= $_SESSION['intolerancias']; ?></i></h3>
+              <h3 style="font-size: 22px;">Clasificación: <i><?= $_SESSION['clasificacion']; ?></i></h3>
+              <h3 style="font-size: 22px;">Actividad: <i><?= $_SESSION['actividad']; ?></i></h3>
+              <h3 style="font-size: 22px;">Imc: <i><?= $_SESSION['imc']; ?></i></h3>
+              <h3 style="font-size: 22px;">Geb: <i><?= $_SESSION['calculo_energetico']['geb']; ?></i></h3>
+              <h3 style="font-size: 22px;">Get: <i><?= $_SESSION['calculo_energetico']['get1']; ?></i></h3>
+              <h3 style="font-size: 22px;">Vct: <i><?= $_SESSION['calculo_energetico']['vct']; ?></i></h3>
 
 
 
@@ -185,7 +191,7 @@
   <br><br>
 
   <?php include "../components/footer.html"?>
-  <script src="../js/perfilScript.js"></script>
+  <!-- <script src="../js/perfilScript.js"></script> -->
   <script
     src="https://kit.fontawesome.com/6209fab7df.js"
     crossorigin="anonymous"

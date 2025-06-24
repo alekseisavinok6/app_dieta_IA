@@ -23,7 +23,13 @@
             peso, 
             enfermedades, 
             alergias, 
-            intolerancias 
+            intolerancias,
+            clasificacion,
+            actividad,
+            imc,
+            geb,
+            get1,
+            vct
             FROM cliente 
             WHERE correo = ?"
         );
@@ -63,7 +69,13 @@
                         $peso, 
                         $enfermedades, 
                         $alergias, 
-                        $intolerancias
+                        $intolerancias,
+                        $clasificacion,
+                        $actividad,
+                        $imc,
+                        $geb,
+                        $get1,
+                        $vct
                     );
                     $stmt->fetch();
                 }
@@ -82,6 +94,12 @@
             $_SESSION['enfermedades'] = $enfermedades;
             $_SESSION['alergias'] = $alergias;
             $_SESSION['intolerancias'] = $intolerancias;
+            $_SESSION['clasificacion'] = $clasificacion;
+            $_SESSION['actividad'] = $actividad;
+            $_SESSION['imc'] = $imc;
+            $_SESSION['calculo_energetico']['geb'] = $geb;
+            $_SESSION['calculo_energetico']['get1'] = $get1;
+            $_SESSION['calculo_energetico']['vct'] =$vct;
             $stmt->close();
             header("Location: ../index.php");
             exit();
