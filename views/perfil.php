@@ -15,11 +15,11 @@
 <body>
   <?php
   session_start();
+  $id_cliente = $_SESSION['id_cliente'];
   $nombre = $_SESSION['nombre'];
   $apellido = $_SESSION['apellido'];
-  $altura = $_SESSION['altura'];
+  $talla = $_SESSION['talla'];
   $peso = $_SESSION['peso'];
-  $pesoDeseado = $_SESSION['peso_deseado'];
   $alergias = $_SESSION['alergias'];
   $alergiasA = explode(',', $alergias);
   $intolerancias = $_SESSION['intolerancias'];
@@ -56,24 +56,32 @@
 
         <!-- DERECHA -->
         <div class="profile-right-container flex-c">
-          <h1>¡Hola, <?= $nombre ?> <?= $apellido ?>!</h1>
-          <div class="data-profile-container box-s">
-            <div class="actual-data-profile flex-c">
+          <h3 style="font-size: xx-large;">Información personal:</h3><br>
+            <div class="data-profile-container box-s">
+              <h3>Id: <i><?= $id_cliente ?></i></h3>
+              <h3>Nombre: <i><?= $nombre ?></i></h3>
+              <h3>Apellido: <i><?= $apellido ?></i></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <div class="actual-data-profile flex-c">
+              <?= $nombre ?>
               <h3>Ajustes</h3>
-              <h4>Altura: <?= $altura ?></h4>
+              <h4>Talla: <?= $talla ?></h4>
               <h4>Peso: <?= $peso ?></h4>
-              <h4>Peso Deseado: 
-                <?php
-                  if(empty($pesoDeseado)){
-                    echo 0;
-                  } else {
-                    echo $pesoDeseado;
-                  }
-                  ?>
-              </h4>
             </div>
             <div class="perfil-form">
               <div class="inputs-container flex-c"> 
+                <?= $nombre ?>
                 <form class="input-group" id="altura-form" action="../controllers/perfilController.php" method="POST">
                   <label for="altura">Altura</label>
                   <input type="number" name="altura" id="altura">
@@ -144,11 +152,12 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
   </div>
+  <br>
 
   <?php include "../components/footer.html"?>
   <script src="../js/perfilScript.js"></script>
