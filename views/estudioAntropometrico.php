@@ -34,12 +34,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Guardar en base de datos
         $id_cliente = $_SESSION['id_cliente'];
-        $conn = new mysqli("localhost", "root", "", "prueba_dietaapp");
+        $conn = new mysqli("localhost", "root", "", "dieta_app");
 
         if ($conn->connect_error) {
             $error = "Error de conexión: " . $conn->connect_error;
         } else {
-            $stmt = $conn->prepare("UPDATE datos_cliente SET peso = ?, talla = ?, imc = ?, peso_ideal = ?, clasificacion = ? WHERE id_cliente = ?");
+            $stmt = $conn->prepare(
+                "UPDATE cliente 
+                SET peso = ?, 
+                talla = ?, 
+                imc = ?, 
+                peso_ideal = ?, 
+                clasificacion = ? 
+                WHERE id_cliente = ?"
+            );
             $stmt->bind_param("ddddsi", $peso, $talla, $imc, $peso_ideal, $clasificacion, $id_cliente);
 
             if (!$stmt->execute()) {
