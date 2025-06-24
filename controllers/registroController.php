@@ -125,21 +125,71 @@
         }
 
         if(empty($errores)) {
-            $stmt = $conexion->prepare("INSERT INTO cliente (nombre, apellido, correo, contrasena, edad, sexo, talla, peso, enfermedades, alergias, intolerancias) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssisddsss", $nombre, $apellido, $correo, $contrasena, $edad, $sexo, $talla, $peso, $enfermedadesBBDD, $alergenosBBDD, $intoleranciasBBDD);
+            $stmt = $conexion->prepare(
+                "INSERT INTO cliente (
+                nombre, 
+                apellido, 
+                correo, 
+                contrasena, 
+                edad, 
+                sexo, 
+                talla, 
+                peso, 
+                enfermedades, 
+                alergias, 
+                intolerancias) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            );
+            $stmt->bind_param("ssssisddsss", 
+                $nombre, 
+                $apellido, 
+                $correo, 
+                $contrasena, 
+                $edad, 
+                $sexo, 
+                $talla, 
+                $peso, 
+                $enfermedadesBBDD, 
+                $alergenosBBDD, 
+                $intoleranciasBBDD
+            );
             $resultado = $stmt->execute();
             if ($resultado) {
-                $consultaUsuario = $conexion->prepare("SELECT id_cliente, nombre, apellido, talla, peso, enfermedades, alergias, intolerancias FROM cliente WHERE correo = ?");
+                $consultaUsuario = $conexion->prepare(
+                    "SELECT 
+                    id_cliente, 
+                    nombre, 
+                    apellido, 
+                    talla, 
+                    peso, 
+                    enfermedades, 
+                    alergias, 
+                    intolerancias 
+                    FROM cliente 
+                    WHERE correo = ?"
+                );
                 $consultaUsuario->bind_param("s", $correo);
                 $consultaUsuario->execute();
                 $consultaUsuario->store_result();
-                $consultaUsuario->bind_result($id_cliente, $nombre, $apellido, $talla, $peso, $enfermedades, $alergias, $intolerancias);
+                $consultaUsuario->bind_result(
+                    $id_cliente, 
+                    $nombre, 
+                    $apellido, 
+                    $talla, 
+                    $peso, 
+                    $enfermedades, 
+                    $alergias, 
+                    $intolerancias
+                );
                 $consultaUsuario->fetch();
 
                 session_start();
                 $_SESSION['id_cliente'] = $id_cliente;
                 $_SESSION['nombre'] = $nombre;
                 $_SESSION['apellido'] = $apellido;
+                $_SESSION['correo'] = $correo;
+                $_SESSION['edad'] = $edad;
+                $_SESSION['sexo'] = $sexo;
                 $_SESSION['talla'] = $talla;
                 $_SESSION['peso'] = $peso;                
                 $_SESSION['enfermedades'] = $enfermedadesBBDD;

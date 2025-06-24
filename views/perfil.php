@@ -15,16 +15,21 @@
 <body>
   <?php
   session_start();
-  $id_cliente = $_SESSION['id_cliente'];
-  $nombre = $_SESSION['nombre'];
-  $apellido = $_SESSION['apellido'];
-  $talla = $_SESSION['talla'];
-  $peso = $_SESSION['peso'];
-  $alergias = $_SESSION['alergias'];
-  $alergiasA = explode(',', $alergias);
-  $intolerancias = $_SESSION['intolerancias'];
-  $intoleranciasA = explode(',', $intolerancias);
-  $inicial = strtoupper(substr($nombre,0,1));
+  // $id_cliente = $_SESSION['id_cliente'];
+  // $nombre = $_SESSION['nombre'];
+  // $apellido = $_SESSION['apellido'];
+  // $correo = $_SESSION['correo'];
+  // $edad = $_SESSION['edad'];
+  // $sexo = $_SESSION['sexo'];
+  // $talla = $_SESSION['talla'];
+  // $peso = $_SESSION['peso'];
+  // $enfermedades = $_SESSION['enfermedades'];
+  // $enfermedadesA = explode(',', $enfermedades);
+  // $alergias = $_SESSION['alergias'];
+  // $alergiasA = explode(',', $alergias);
+  // $intolerancias = $_SESSION['intolerancias'];
+  // $intoleranciasA = explode(',', $intolerancias);
+  // $inicial = strtoupper(substr($nombre,0,1));
   if (!isset($_SESSION['id_cliente'])) {
     header("Location: ../views/login.php");
     exit();
@@ -56,11 +61,31 @@
 
         <!-- DERECHA -->
         <div class="profile-right-container flex-c">
-          <h3 style="font-size: xx-large;">Información personal:</h3><br>
+          <h3 style="font-size: xx-large;">Información personal:</h3>
             <div class="data-profile-container box-s">
-              <h3>Id: <i><?= $id_cliente ?></i></h3>
+              <!-- <h3>Id: <i><?= $id_cliente ?></i></h3>
               <h3>Nombre: <i><?= $nombre ?></i></h3>
               <h3>Apellido: <i><?= $apellido ?></i></h3>
+              <h3>Correo: <i><?= $correo ?></i></h3>
+              <h3>Edad: <i><?= $edad ?></i></h3>
+              <h3>Sexo: <i><?= $sexo ?></i></h3>
+              <h3>Talla (m): <i><?= $talla ?></i></h3>
+              <h3>Peso (kg): <i><?= $peso ?></i></h3>
+              <h3>Enfermedades: <i><?= $enfermedades ?></i></h3>
+              <h3>Alergias: <i><?= $alergias ?></i></h3>
+              <h3>Intolerancias: <i><?= $intolerancias ?></i></h3> -->
+
+              <h3>Id: <i><?= $_SESSION['id_cliente']; ?></i></h3>
+              <h3>Nombre: <i><?= $_SESSION['nombre']; ?></i></h3>
+              <h3>Apellido: <i><?= $_SESSION['apellido']; ?></i></h3>
+              <h3>Correo: <i><?= $_SESSION['correo']; ?></i></h3>
+              <h3>Edad: <i><?= $_SESSION['edad']; ?></i></h3>
+              <h3>Sexo: <i><?= $_SESSION['sexo']; ?></i></h3>
+              <h3>Talla (m): <i><?= $_SESSION['talla']; ?></i></h3>
+              <h3>Peso (kg): <i><?= $_SESSION['peso']; ?></i></h3>
+              <h3>Enfermedades: <i><?= $_SESSION['enfermedades']; ?></i></h3>
+              <h3>Alergias: <i><?= $_SESSION['alergias']; ?></i></h3>
+              <h3>Intolerancias: <i><?= $_SESSION['intolerancias']; ?></i></h3>
 
 
 
@@ -157,7 +182,7 @@
         </div>
       </div>
   </div>
-  <br>
+  <br><br>
 
   <?php include "../components/footer.html"?>
   <script src="../js/perfilScript.js"></script>
