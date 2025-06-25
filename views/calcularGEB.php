@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $nivel_actividad = $niveles[$actividad]['desc'] ?? 'Desconocido';
 
         // Calcular Gasto Energético Total (GET)
-        $get = $geb * $factor;
+        $get1 = $geb * $factor;
         
         // Calcular VCT (usando peso ideal)
         if ($peso_ideal !== null) {
@@ -63,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['actividad'] = $actividad;
         $_SESSION['peso_ideal'] = $peso_ideal;
         $_SESSION['calculo_energetico'] = [
-            'gasto_energetico_basal' => round($geb, 2),
-            'gasto_energetico_total' => round($get, 2),
+            'geb' => round($geb, 2),
+            'get1' => round($get1, 2),
             'vct' => round($vct, 2),
             'nivel_actividad' => $nivel_actividad
         ];
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $host = "localhost";
         $usuario = "root";
         $contrasena = "";
-        $bd = "prueba_dietaapp";
+        $bd = "dieta_app";
 
         $conn = new mysqli($host, $usuario, $contrasena, $bd);
 
@@ -81,20 +81,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $error = "Error de conexión con la base de datos: " . $conn->connect_error;
         } else {
             $id_cliente = $_SESSION['id_cliente'];
-            $stmt = $conn->prepare("UPDATE datos_cliente SET 
-            peso = ?, 
-            talla = ?, 
-            edad = ?, 
-            sexo = ?, 
-            actividad = ?, 
-            gasto_energetico_basal = ?, 
-            gasto_energetico_total = ?,
-            vct = ?, 
-            peso_ideal = ? 
-            WHERE id_cliente = ?"
+            $stmt = $conn->prepare(
+                "UPDATE cliente 
+                SET 
+                peso = ?, 
+                talla = ?, 
+                edad = ?, 
+                sexo = ?, 
+                actividad = ?, 
+                geb = ?, 
+                get1 = ?,
+                vct = ?, 
+                peso_ideal = ? 
+                WHERE id_cliente = ?"
             );
-            $stmt->bind_param("ddissddddi", $peso, $talla, $edad, $sexo, $actividad, $geb, $get, $vct, $peso_ideal, $id_cliente);
-
+            $stmt->bind_param(
+                "ddissddddi", 
+                $peso, 
+                $talla, 
+                $edad, 
+                $sexo, 
+                $actividad, 
+                $geb, 
+                $get1, 
+                $vct, 
+                $peso_ideal, 
+                $id_cliente
+            );
             if ($stmt->execute()) {
                 $mensaje .= "Datos actualizados correctamente en la base de datos.";
             } else {
@@ -111,8 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-$geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'] ?? null;
-$get = $_SESSION['calculo_energetico']['gasto_energetico_total'] ?? null;
+$geb = $_SESSION['calculo_energetico']['geb'] ?? null;
+$get1 = $_SESSION['calculo_energetico']['get1'] ?? null;
 $vct = $_SESSION['calculo_energetico']['vct'] ?? null;
 $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
 ?>
@@ -300,7 +313,7 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                     <button type="submit" class="btn">Calcular</button>
                 </form>
                     <a href="<?= BASE_URL ?>views/generarDieta.php"><button class="btn-relleno-suave-pequeno-cursiva">➡︎ Siguiente paso</button></a>
-                <?php if ($geb && $get && $vct): ?>
+                <?php if ($geb && $get1 && $vct): ?>
                     <div class="resultados">
                         <p><strong>GEB:</strong> <?= number_format($geb, 2) ?> kcal/día
                             <span class="tooltip">ℹ️
@@ -309,7 +322,7 @@ $nivel_actividad = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null;
                                 </span>
                             </span>
                         </p>
-                        <p><strong>GET:</strong> <?= number_format($get, 2) ?> kcal/día
+                        <p><strong>GET:</strong> <?= number_format($get1, 2) ?> kcal/día
                             <span class="tooltip">ℹ️
                                 <span class="tooltiptext">
                                     Gasto Energético Total (GET) es la suma del gasto energético basal (GEB), la actividad física y otros factores como la digestión de alimentos.

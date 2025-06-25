@@ -156,7 +156,7 @@ label {
 /*---VISTA INICIO---*/
 /* BANNER */
 .banner {
-  background-image: url("../imgs/imgfondo02.jpeg");
+  background-image: url("../imgs/imgfondo04.jpeg");
   position: relative;
   background-size: cover;
   background-position: center;
@@ -248,13 +248,13 @@ label {
 }
 
 .form-name,
-.form-password {
+.form-contrasena {
   display: flex;
   gap: 20px;
 }
 
 .form-name div,
-.form-password div {
+.form-contrasena div {
   width: 50%;
 }
 

@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $sexo = $_SESSION['sexo'] ?? null;
     $nivel_actividad_original = $_SESSION['actividad'] ?? null; // por ejemplo, 'sedentario'
     $nivel_actividad_descriptivo = $_SESSION['calculo_energetico']['nivel_actividad'] ?? null; // por ejemplo, 'Actividad sedentaria'
-    $geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'] ?? null;
-    $get = $_SESSION['calculo_energetico']['gasto_energetico_total'] ?? null;
+    $geb = $_SESSION['calculo_energetico']['geb'] ?? null;
+    $get1 = $_SESSION['calculo_energetico']['get1'] ?? null;
     $vct_calculado_inicial = $_SESSION['calculo_energetico']['vct'] ?? null;
     $enfermedades = $_SESSION['enfermedades'] ?? null; // Enfermedades o condiciones de salud relevantes
 
@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['generarDieta'])) {
     $prompt_para_gemini .= "- **Altura (talla):** " . ($talla_metros * 100) . " cm\n"; // Convirtamos metros a cm para mayor claridad.
     $prompt_para_gemini .= "- **IMC:** " . number_format($imc, 2) . " (" . $clasificacion_oms . ")\n";
     $prompt_para_gemini .= "- **Nivel de actividad física especificado por el usuario:** " . $nivel_actividad_descriptivo . "\n";
-    $prompt_para_gemini .= "- **Gasto energético total estimado (GET):** " . number_format($get, 2) . " kcal/día\n";
+    $prompt_para_gemini .= "- **Gasto energético total estimado (GET):** " . number_format($get1, 2) . " kcal/día\n";
     $prompt_para_gemini .= "- **Objetivo dietético seleccionado por el usuario:** " . $objetivo_usuario_form . "\n";
     $prompt_para_gemini .= "- **Objetivo calórico total de la dieta (VCT):** " . number_format($vct_final_objetivo, 2) . " kcal/día\n\n";
     // Añadiendo preferencias dietéticas

@@ -1,5 +1,27 @@
 <?php
 session_start();
+if (!isset($_SESSION['peso_ideal'], $_SESSION['imc'], $_SESSION['clasificacion']) && isset($_SESSION['id_cliente'])) {
+    $conn = new mysqli("localhost", "root", "", "dieta_app");
+
+    if (!$conn->connect_error) {
+        $stmt = $conn->prepare("SELECT peso, talla, imc, peso_ideal, clasificacion FROM cliente WHERE id_cliente = ?");
+        $stmt->bind_param("i", $_SESSION['id_cliente']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            $_SESSION['peso'] = $row['peso'];
+            $_SESSION['talla'] = $row['talla'];
+            $_SESSION['imc'] = round($row['imc'], 2);
+            $_SESSION['peso_ideal'] = round($row['peso_ideal'], 2);
+            $_SESSION['clasificacion'] = $row['clasificacion'];
+        }
+
+        $stmt->close();
+        $conn->close();
+    }
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $peso = isset($_POST['peso']) ? floatval($_POST['peso']) : null;
@@ -34,12 +56,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Guardar en base de datos
         $id_cliente = $_SESSION['id_cliente'];
-        $conn = new mysqli("localhost", "root", "", "prueba_dietaapp");
+        $conn = new mysqli("localhost", "root", "", "dieta_app");
 
         if ($conn->connect_error) {
             $error = "Error de conexión: " . $conn->connect_error;
         } else {
-            $stmt = $conn->prepare("UPDATE datos_cliente SET peso = ?, talla = ?, imc = ?, peso_ideal = ?, clasificacion = ? WHERE id_cliente = ?");
+            $stmt = $conn->prepare(
+                "UPDATE cliente 
+                SET peso = ?, 
+                talla = ?, 
+                imc = ?, 
+                peso_ideal = ?, 
+                clasificacion = ? 
+                WHERE id_cliente = ?"
+            );
             $stmt->bind_param("ddddsi", $peso, $talla, $imc, $peso_ideal, $clasificacion, $id_cliente);
 
             if (!$stmt->execute()) {
