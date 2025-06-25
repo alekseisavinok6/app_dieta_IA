@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,7 +18,7 @@
 </head>
 <body>
   <?php
-  session_start();
+  //session_start();
   // $id_cliente = $_SESSION['id_cliente'];
   // $nombre = $_SESSION['nombre'];
   // $apellido = $_SESSION['apellido'];
@@ -86,12 +90,12 @@
               <h3 style="font-size: 22px;">Enfermedades: <i><?= $_SESSION['enfermedades']; ?></i></h3>
               <h3 style="font-size: 22px;">Alergias: <i><?= $_SESSION['alergias']; ?></i></h3>
               <h3 style="font-size: 22px;">Intolerancias: <i><?= $_SESSION['intolerancias']; ?></i></h3>
-              <h3 style="font-size: 22px;">Clasificación: <i><?= $_SESSION['clasificacion']; ?></i></h3>
-              <h3 style="font-size: 22px;">Actividad: <i><?= $_SESSION['actividad']; ?></i></h3>
-              <h3 style="font-size: 22px;">Imc: <i><?= $_SESSION['imc']; ?></i></h3>
-              <h3 style="font-size: 22px;">Geb: <i><?= $_SESSION['calculo_energetico']['geb']; ?></i></h3>
-              <h3 style="font-size: 22px;">Get: <i><?= $_SESSION['calculo_energetico']['get1']; ?></i></h3>
-              <h3 style="font-size: 22px;">Vct: <i><?= $_SESSION['calculo_energetico']['vct']; ?></i></h3>
+              <h3 style="font-size: 22px;">Clasificación: <i><?= $_SESSION['clasificacion'] ?? 'No disponible'; ?></i></h3>
+              <h3 style="font-size: 22px;">Actividad: <i><?= $_SESSION['actividad'] ?? 'No disponible'; ?></i></h3>
+              <h3 style="font-size: 22px;">Imc: <i><?= $_SESSION['imc'] ?? 'No disponible'; ?></i></h3>
+              <h3 style="font-size: 22px;">Geb: <i><?= $_SESSION['calculo_energetico']['geb'] ?? 'No disponible'; ?></i></h3>
+              <h3 style="font-size: 22px;">Get: <i><?= $_SESSION['calculo_energetico']['get1'] ?? 'No disponible'; ?></i></h3>
+              <h3 style="font-size: 22px;">Vct: <i><?= $_SESSION['calculo_energetico']['vct'] ?? 'No disponible'; ?></i></h3>
 
 
 

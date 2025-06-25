@@ -27,8 +27,8 @@ $edad = $_SESSION['edad'];
 $sexo = $_SESSION['sexo'];
 $nivel_actividad_original = $_SESSION['actividad'] ?? 'moderada'; // Utilizamos el valor bruto de la actividad de calcularGEB
 $nivel_actividad_descriptivo = $_SESSION['calculo_energetico']['nivel_actividad'];
-$geb = $_SESSION['calculo_energetico']['gasto_energetico_basal'];
-$get = $_SESSION['calculo_energetico']['gasto_energetico_total'];
+$geb = $_SESSION['calculo_energetico']['geb'];
+$get = $_SESSION['calculo_energetico']['get1'];
 $vct_calculado_inicial = $_SESSION['calculo_energetico']['vct']; // Cálculo del VCT a partir del GEB
 
 // Obtener las preferencias del usuario a partir del formulario enviado
